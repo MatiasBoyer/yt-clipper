@@ -35,9 +35,10 @@ async function load_dbaccess()
 
   db_username = data[0];
   db_password = data[1];
+  MongoCONN = data[2];
 
-  MongoCONN =
-  `mongodb+srv://${db_username}:${db_password}@cluster0.s2pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+  MongoCONN = MongoCONN.replace("DB-USER", db_username);
+  MongoCONN = MongoCONN.replace("DB-PASS", db_password);
 }
 
 const dl_location = __dirname + "\\tmp";
