@@ -60,8 +60,10 @@ $(document).ready(function()
     // SUBMIT REQUEST
     $("#request_form").submit((ev) =>
     {
+        var url_parse = new URL(f_url.val());
+
         var obj_data = {
-            vid_id: f_url.val(),
+            vid_id: url_parse.searchParams.get('v'),
             from: f_from.val(),
             to: f_to.val()
         }
