@@ -8,6 +8,16 @@ $(document).ready(function()
     var f_to = $("#f_to");
     $("#loadinggif").hide();
 
+    $('textarea')
+    .attr('unselectable', 'on')
+    .css('-webkit-user-select', 'none')
+    .css('-moz-user-select', 'none')
+    .css("-ms-user-select","none")
+    .css("-o-user-select","none")
+    .css("user-select",'none')
+    .on('selectstart', false)
+    .on('mousedown', false);
+
     var info_text = $("#info_text");
 
     // ADD TO CMD LINE
@@ -73,6 +83,8 @@ $(document).ready(function()
     // SUBMIT REQUEST
     $("#request_form").submit((ev) =>
     {
+        $(this).find("button[type='submit']").prop('disabled', true);
+
         var url_parse = new URL(f_url.val());
 
         var obj_data = {
@@ -108,6 +120,8 @@ $(document).ready(function()
             var obj = JSON.parse(err.responseText);
             add_to_info(`ERROR -> ${obj["message"]}`);
             enable_loadingfeedback(false);
+
+            $(this).find("button[type='submit']").prop('disabled', true);
         })
         .always(() =>
         {
