@@ -1,3 +1,9 @@
+// --- VARS ---
+const PORT = 8000;
+const LIMIT_TIME = 15; // MINUTES
+const LIMIT_CALLS = 99999; // 40 calls per LIMIT_TIME minutes
+
+
 const express = require("express");
 const short = require("short-uuid");
 const bp = require("body-parser");
@@ -8,14 +14,13 @@ const { exec } = require("child_process");
 
 const MongoClient = require("mongodb").MongoClient;
 const app = express();
-const PORT = 25565;
 var db_username = "";
 var db_password = "";
 var MongoCONN = "";
 
 async function load_dbaccess()
 {
-  const fstream = fs.createReadStream("src\\access");
+  const fstream = fs.createReadStream(__dirname + "\\access");
   const rl = readline.createInterface({
     input: fstream,
     crlfDelay: Infinity
@@ -35,7 +40,7 @@ async function load_dbaccess()
   `mongodb+srv://${db_username}:${db_password}@cluster0.s2pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 }
 
-const dl_location = "D:\\MB\\dev\\SOURCE\\yt_clipper\\src\\tmp";
+const dl_location = __dirname + "\\tmp";
 
 var db_requests = null;
 
@@ -101,8 +106,8 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
   db_requests = db.collection("requests");
 
   const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 15,
+    windowMs: LIMIT_TIME * 60 * 1000,
+    max: LIMIT_CALLS,
     onLimitReached: (req, res, options) =>
     {
       res.status(429);
@@ -113,6 +118,7 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
   app.use(limiter);
 
   app.use(express.json());
+  app.use(express.static('page'));
 
   app.use(bp.json());
   app.use(bp.urlencoded({ extended: true }));
@@ -256,6 +262,11 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
   });
 
   app.listen(PORT, () => console.log(`Started on http://localhost:${PORT}`));
+
+  app.get("/", (req, res) =>
+  {
+    res.sendFile("page/index.html", { root: __dirname });
+  });
 
 });
 }

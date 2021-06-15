@@ -1,11 +1,25 @@
-const sv = "http://190.55.15.72:25565";
+const sv = window.location.origin;
 const timeout = 3000;
+
+function clamp(num, min, max)
+{
+return num <= min 
+? min 
+: num >= max 
+  ? max 
+  : num
+}
 
 $(document).ready(function()
 {
     var f_url = $("#f_url");
-    var f_from = $("#f_from");
-    var f_to = $("#f_to");
+
+    var f_from_mm = $("#f_from_mm");
+    var f_from_ss = $("#f_from_ss");
+
+    var f_to_mm = $("#f_to_mm");
+    var f_to_ss = $("#f_to_ss");
+
     $("#loadinggif").hide();
 
     $('textarea')
@@ -80,6 +94,15 @@ $(document).ready(function()
         });
     }
 
+    $("#request_form").focusout(() =>
+    {
+        f_from_mm.val(clamp(parseInt(f_from_mm.val()), 0, 300));
+        f_from_ss.val(clamp(parseFloat(f_from_ss.val()), 0, 59.5));
+
+        f_to_mm.val(clamp(parseInt(f_to_mm.val()), 0, 350));
+        f_to_ss.val(clamp(parseInt(f_to_ss.val()), 0, 59.5));
+    });
+
     // SUBMIT REQUEST
     $("#request_form").submit((ev) =>
     {
@@ -87,10 +110,13 @@ $(document).ready(function()
 
         var url_parse = new URL(f_url.val());
 
+        var from = ((parseInt(f_from_mm.val()) * 60) + parseFloat(f_from_ss.val()));
+        var to = ((parseInt(f_to_mm.val()) * 60) + parseFloat(f_to_ss.val()));
+
         var obj_data = {
             vid_id: url_parse.searchParams.get('v'),
-            from: f_from.val(),
-            to: f_to.val()
+            from: from.toString(),
+            to: to.toString()
         }
 
         add_to_info(`[TASK]: $.ajax() requesting '${obj_data.vid_id}' ${obj_data.from}/${obj_data.to}`);
