@@ -101,6 +101,16 @@ $(document).ready(function()
 
         f_to_mm.val(clamp(parseInt(f_to_mm.val()), 0, 350));
         f_to_ss.val(clamp(parseInt(f_to_ss.val()), 0, 59.5));
+
+        if(parseFloat(f_from_ss.val()) > parseFloat(f_to_ss.val()))
+        {
+            f_to_ss.val(f_from_ss.val());
+        }
+
+        if(parseInt(f_from_mm.val()) > parseInt(f_to_mm.val()))
+        {
+            f_to_mm.val(f_from_mm.val());
+        }
     });
 
     // SUBMIT REQUEST

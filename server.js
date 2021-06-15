@@ -178,12 +178,12 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       message: "init",
     });
 
-    dl_vid(reqid, vid_id, from, to);
-
     res.status(200).send({
       message: "ok",
       req_id: reqid,
     });
+
+    dl_vid(reqid, vid_id, from, to);
   });
 
   app.get("/video/status", (req, res) => {
