@@ -45,6 +45,14 @@ function update_req(req_id, status, message) {
   );
 }
 
+function debugfs_writeToSTDERR(data)
+{
+  fs.appendFile('stderr', `\n[${Date.now()}]\n${data}`, (err) =>
+  {
+    if(err) throw err;
+  });
+}
+
 function dl_vid(req_id, vid_id, from, to) {
   update_req(req_id, 1001, "Started.");
   var yt_dl_cmd = `youtube-dl -f best -g \"https://www.youtube.com/watch?v=${vid_id}\"`;
@@ -53,6 +61,7 @@ function dl_vid(req_id, vid_id, from, to) {
   exec(yt_dl_cmd, (err, stdout, stderr) => {
     if (err) {
       console.log(err);
+      debugfs_writeToSTDERR(err);
       console.log("Error on YT_DL");
       update_req(req_id, 1003, "error on YT_DL");
       return;
@@ -62,14 +71,11 @@ function dl_vid(req_id, vid_id, from, to) {
     //console.log(`stderr: ${stderr}`);
     //console.log(`stdout: ${stdout}`);
 
-    var ffmpeg_cmd = `ffmpeg -ss ${from} -i \"${yt_dl_result.join(
-      " "
-    )}\" -acodec copy -vcodec copy -t ${
-      to - from
-    } ${dl_location}\\${req_id}.mp4`;
+    var ffmpeg_cmd = `ffmpeg -ss ${from} -i \"${yt_dl_result.join(" ")}\" -t ${to - from} -c:v copy -c:a aac ${dl_location}\\${req_id}.mp4`;
     exec(ffmpeg_cmd, (err, stdout, stderr) => {
       if (err) {
         console.log(err);
+        debugfs_writeToSTDERR(err);
         console.log("Error on FFMPEG");
         update_req(req_id, 1003, "error on FFMPEG");
         return;

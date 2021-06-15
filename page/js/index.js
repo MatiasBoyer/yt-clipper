@@ -6,6 +6,7 @@ $(document).ready(function()
     var f_url = $("#f_url");
     var f_from = $("#f_from");
     var f_to = $("#f_to");
+    $("#loadinggif").hide();
 
     var info_text = $("#info_text");
 
@@ -16,6 +17,18 @@ $(document).ready(function()
         info_text.scrollTop(info_text[0].scrollHeight - info_text.height());
     }
     add_to_info("$(document).ready() !");
+
+    function enable_loadingfeedback(enable)
+    {
+        if(enable == true)
+        {
+            $("#loadinggif").show("slow");
+        }
+        else
+        {
+            $("#loadinggif").hide("slow");
+        }
+    }
 
     // CHECK REQUEST
     function check_request(reqid)
@@ -69,6 +82,7 @@ $(document).ready(function()
         }
 
         add_to_info(`[TASK]: $.ajax() requesting '${obj_data.vid_id}' ${obj_data.from}/${obj_data.to}`);
+        enable_loadingfeedback(true);
 
         $.ajax({
             type: 'POST',
@@ -93,6 +107,7 @@ $(document).ready(function()
         {
             var obj = JSON.parse(err.responseText);
             add_to_info(`ERROR -> ${obj["message"]}`);
+            enable_loadingfeedback(false);
         })
         .always(() =>
         {
