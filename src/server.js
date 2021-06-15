@@ -2,6 +2,7 @@ const express = require("express");
 const short = require("short-uuid");
 const bp = require("body-parser");
 const fs = require("fs");
+const rateLimit = require("express-rate-limit");
 const readline = require('readline');
 const { exec } = require("child_process");
 
@@ -98,6 +99,18 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
 
   const db = client.db("ytclipper");
   db_requests = db.collection("requests");
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 15,
+    onLimitReached: (req, res, options) =>
+    {
+      res.status(429);
+      res.send({ message: "Too many requests! Please try again in 15 minutes." });
+    }
+  });
+
+  app.use(limiter);
 
   app.use(express.json());
 
@@ -216,8 +229,36 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       });
   });
 
+  app.delete("/video/remove", (req, res) => {
+    const { req_id } = req.query;
+    const file = `${__dirname}/tmp/${req_id}.mp4`;
+
+    db_requests.findOne({ $or: [{req_id: req_id }]})
+    .then((r) =>
+    {
+      fs.unlink(file, (err) =>
+      {
+        if(err)
+        {
+          res.status(400);
+          res.send({ message: err });
+        }
+        db_requests.deleteOne({ $or: [{req_id: req_id }]});
+        res.status(200);
+        res.send({ message: "removed" });
+      });
+    })
+    .catch((err) =>
+    {
+      res.status(400);
+      res.send({ message: err })
+    });    
+  });
+
   app.listen(PORT, () => console.log(`Started on http://localhost:${PORT}`));
+
 });
 }
+
 load_dbaccess();
 setTimeout(() => initMongo(), 500);

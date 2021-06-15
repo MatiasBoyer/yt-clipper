@@ -35,7 +35,7 @@
       "
     >
       <form id="request_form">
-        URL:
+        URL:<br>
         <input
           name="f_url"
           id="f_url"
@@ -43,10 +43,10 @@
           placeholder="https://www.youtube.com/watch?v=NspOEosFEvI"
           required="required"
           autocomplete="on"
-          style="text-align: center"
+          style="text-align: center; width: 400px;"
           type="text"
-        /><br />
-        FROM TIME:
+        /><br>
+        FROM TIME:<br>
         <input
           name="f_from"
           id="f_from"
@@ -54,10 +54,13 @@
           placeholder="0"
           required="required"
           autocomplete="on"
-          style="text-align: center"
+          style="text-align: center; width: 100px;"
           type="number"
-        /><br />
-        TO TIME:
+          step="0.50"
+          min="0"
+          max="900"
+        /><br>
+        TO TIME:<br>
         <input
           name="f_to"
           id="f_to"
@@ -65,14 +68,17 @@
           placeholder="4"
           required="required"
           autocomplete="on"
-          style="text-align: center"
+          style="text-align: center; width: 100px;"
           type="number"
-        /><br />
+          step="0.50"
+          min="0"
+          max="900"
+        /><br>
         <button
           id="f_submit"
           form="request_form"
           type="submit"
-          style="text-align: center"
+          style="text-align: center; width: 100px;"
         >
           REQUEST !
         </button>
@@ -84,7 +90,7 @@
         text-align: center;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, 25%);
+        transform: translate(-50%, 35%);
       "
     >
       <textarea
