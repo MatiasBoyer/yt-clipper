@@ -1,0 +1,39 @@
+ffmpeg -ss ${from} -i $(youtube-dl -f best -g \"https://www.youtube.com/watch?v=${vid_id}\") -acodec copy -vcodec copy -t ${from + to} ${req_id}.mp4
+
+http://localhost:8080
+http://190.55.15.72:8080
+
+----- REQUEST STATUS CODES -----
+
+1000	In queue
+1001	Processing
+1002	Finished
+1003	Error
+
+----- POST METHODS -----
+
+	request_video
+		POST JSON
+			vid_id: Parámetro v en un video de youtube
+				ej: https://www.youtube.com/watch?v=XheJnmLAwhk
+					v = XheJnmLAwhk
+			from: 	Desde qué segundo?
+			to: 	Hasta qué segundo?
+		RETURNS
+			message: "ok" if successful
+			req_id: REQUEST ID
+
+----- GET METHODS -----
+
+	video_status
+		JSON
+			req_id: REQUEST ID
+		RETURNS
+			message: "ok" if successful
+			req_status: REQUEST STATUS CODE 
+			
+	download
+		QUERY
+			req_id: REQUEST ID
+		RETURNS
+			status 200 and download IF OK
