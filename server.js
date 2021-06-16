@@ -202,7 +202,7 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       res.status(400);
       res.send({
         message:
-          "'FROM' is less than 'TO', meaning you're traveling back in time!",
+          "'FROM' is greater than 'TO', meaning you're traveling back to the future!",
         req_id: null,
       });
       return;
