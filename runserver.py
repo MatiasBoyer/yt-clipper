@@ -39,6 +39,9 @@ async def check_for_updates():
 
         exec_cmd("git reset --hard origin/prod")
 
+        await asyncio.sleep(15)
+        openServer()
+
 async def forever_update():
     while True:
         await check_for_updates()
