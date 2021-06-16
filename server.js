@@ -1,9 +1,15 @@
-// --- VARS ---
+// ------- CONFIG -------
 const PORT = 80;
+
+// ------- CALLs LIMIT -------
 const LIMIT_TIME = 15; // MINUTES
 const LIMIT_CALLS = 99999; // 40 calls per LIMIT_TIME minutes
 
+// ------- AUTO-DELETE -------
+const AD_OLDER_THAN = 15; // MINUTES
+const AD_EVERY_MS = 20; // MINUTES
 
+// ---- NO EDIT ----
 const express = require("express");
 const short = require("short-uuid");
 const bp = require("body-parser");
@@ -132,6 +138,8 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
   db_requests.findOne({ $or: [{req_id: req_id }]})
     .then((r) =>
     {
+      db_requests.deleteOne({ $or: [{req_id: req_id }]});
+
       fs.unlink(file, (err) =>
       {
         if(err)
@@ -139,7 +147,6 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
           errorCallback(err);
           return;
         }
-        db_requests.deleteOne({ $or: [{req_id: req_id }]});
        
         okCallback();
       });
@@ -296,13 +303,25 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
     });
   });
 
-  app.listen(PORT, () => console.log(`Started on http://localhost:${PORT}`));
-
   app.get("/", (req, res) =>
   {
     res.sendFile("page/index.html", { root: __dirname });
   });
 
+  app.listen(PORT, () => console.log(`Started on http://localhost:${PORT}`));
+
+  setInterval(() => {
+    db_requests
+      .find({ date: { $lt: Date.now() - AD_OLDER_THAN * 60 }})
+      .toArray()
+      .then((result) =>
+      {
+        result.forEach(element => {
+          delete_vid(element["req_id"], () => { console.log(`[TASK] Deleted ${element["req_id"]}`); }, 
+          (err) => { console.log(`Error deleting ${element["req_id"]} - ${err}`); })
+        });
+      });
+  }, AD_EVERY_MS * 60000);
 });
 }
 
