@@ -18,6 +18,8 @@ var db_username = "";
 var db_password = "";
 var MongoCONN = "";
 
+const normalChars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+
 async function load_dbaccess()
 {
   const fstream = fs.createReadStream(__dirname + "\\access");
@@ -103,9 +105,6 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
   if (err) return console.error(err);
   console.log("Connected to MongoDB");
 
-  const db = client.db("ytclipper");
-  db_requests = db.collection("requests");
-
   const limiter = rateLimit({
     windowMs: LIMIT_TIME * 60 * 1000,
     max: LIMIT_CALLS,
@@ -115,7 +114,7 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       res.send({ message: "Too many requests! Please try again in 15 minutes." });
     }
   });
-
+  
   app.use(limiter);
 
   app.use(express.json());
@@ -123,6 +122,34 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
 
   app.use(bp.json());
   app.use(bp.urlencoded({ extended: true }));
+
+  const db = client.db("ytclipper");
+  db_requests = db.collection("requests");
+
+  function delete_vid(req_id, okCallback, errorCallback)
+{
+  const file = `${__dirname}/tmp/${req_id}.mp4`;
+  db_requests.findOne({ $or: [{req_id: req_id }]})
+    .then((r) =>
+    {
+      fs.unlink(file, (err) =>
+      {
+        if(err)
+        {
+          errorCallback(err);
+          return;
+        }
+        db_requests.deleteOne({ $or: [{req_id: req_id }]});
+       
+        okCallback();
+      });
+    })
+    .catch((err) =>
+    {
+      console.log(err);
+      errorCallback(err);
+    });   
+}
 
   app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -151,6 +178,16 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       return;
     }
 
+    if(vid_id.length > 12)
+    {
+      res.status(400);
+      res.send({
+        message: "vid_id is longer than permitted.",
+        req_id: null,
+      });
+      return;
+    }
+
     if (from_val >= to_val) {
       res.status(400);
       res.send({
@@ -164,7 +201,7 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
     console.log(`REQUEST: '${vid_id}' ${from}/${to}`);
 
     var curr = Date.now();
-    var reqid = `${curr / 1000}-${short.generate()}`;
+    var reqid = `${parseInt(curr / 1000)}-${short.generate()}`;
 
     var ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
 
@@ -238,28 +275,25 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
 
   app.delete("/video/remove", (req, res) => {
     const { req_id } = req.query;
-    const file = `${__dirname}/tmp/${req_id}.mp4`;
 
-    db_requests.findOne({ $or: [{req_id: req_id }]})
-    .then((r) =>
+    for(var i = 0; i < req_id.length; i++)
     {
-      fs.unlink(file, (err) =>
+      if(normalChars.includes(req_id[i]))
       {
-        if(err)
-        {
-          res.status(400);
-          res.send({ message: err });
-        }
-        db_requests.deleteOne({ $or: [{req_id: req_id }]});
-        res.status(200);
-        res.send({ message: "removed" });
-      });
-    })
-    .catch((err) =>
+        res.status(400);
+        res.send({ message: "string contains special characters!" });
+        return;
+      }
+    }
+
+    delete_vid(req_id, () =>
     {
+      res.status(200);
+      res.send({ message: "ok" });
+    }, (err) => {
       res.status(400);
-      res.send({ message: err })
-    });    
+      res.send({ message: err });
+    });
   });
 
   app.listen(PORT, () => console.log(`Started on http://localhost:${PORT}`));
