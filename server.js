@@ -11,7 +11,6 @@ const AD_OLDER_THAN = 15; // MINUTES
 const AD_EVERY_MS = 20; // MINUTES
 
 // ---- NO EDIT ----
-const autoupdt = require(".\\autoupdate");
 const express = require("express");
 const short = require("short-uuid");
 const bp = require("body-parser");
@@ -361,7 +360,4 @@ function initMongo() {
 }
 
 load_dbaccess();
-
-autoupdt.checkUpdates();
-
 setTimeout(() => initMongo(), 500);
