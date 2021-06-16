@@ -16,9 +16,13 @@ $(document).ready(function () {
   var url_parse = new URL(window.location);
   var vID = url_parse.searchParams.get("v");
 
+  var f_fromTime = $("#f_fromTime");
+  var f_toTime = $("#f_toTime");
+
   CreateYTPlayer(vID);
 
   $("#loadinggif").hide();
+  $(".loading_back").toggleClass("loading_back_off");
 
   $("textarea")
     .attr("unselectable", "on")
@@ -42,19 +46,11 @@ $(document).ready(function () {
   function enable_loadingfeedback(enable) {
     if (enable == true) {
       $("#loadinggif").show("slow");
+      $(".loading_back").toggleClass("loading_back_on");
     } else {
       $("#loadinggif").hide("slow");
+      $(".loading_back").toggleClass("loading_back_on");
     }
-  }
-
-  function doRangeCheck() {
-    var f_fromTime = $("#f_fromTime");
-    var f_toTime = $("#f_toTime");
-
-    if(f_toTime.val() <= f_fromTime.val())
-        {
-            f_toTime.val(parseFloat(f_fromTime.val()) + 1);
-        }
   }
 
   // CHECK REQUEST
@@ -82,37 +78,50 @@ $(document).ready(function () {
           }, 1000);
         } else {
           add_to_info(`ERROR -> ${res["message"]}`);
+          enable_loadingfeedback(false);
         }
       }
     });
   }
 
   $("#f_from-set").click(() => {
-    var num = roundToFixed2(player.getCurrentTime());
-    $("#f_fromTime").val(num);
+    var curr = parseFloat(player.getCurrentTime());
+    var num = parseFloat(roundToFixed2(curr));
 
-    doRangeCheck();
-    player.seekTo($("#f_fromTime").val());
+    if(curr > f_toTime.val())
+    {
+      f_toTime.val(num + 1);
+    }
+
+    f_fromTime.val(num);
+    player.seekTo(num);
     return false;
   });
 
   $("#f_to-set").click(() => {
-    var num = roundToFixed2(player.getCurrentTime());
-    $("#f_toTime").val(num);
+    var curr = parseFloat(player.getCurrentTime());
+    var num = parseFloat(roundToFixed2(curr));
 
-    doRangeCheck();
-    player.seekTo($("#f_toTime").val());
+    if(curr < f_fromTime.val())
+    {
+      f_fromTime.val(num - 1);
+    }
+
+    f_toTime.val(num);
+    player.seekTo(num);
     return false;
   });
 
   $("#f_videocontrols").focusout(() => {
-    doRangeCheck();
+    var from = parseFloat(f_fromTime.val());
+    var to = parseFloat(f_toTime.val());
+
+    if(from > to)
+      f_fromTime.val(to - 1);
   });
 
   $("#f_videocontrols").submit((ev) => {
     $(this).find("button[type='submit']").prop("disabled", true);
-
-    doRangeCheck();
 
     var f_fromTime = $("#f_fromTime");
     var f_toTime = $("#f_toTime");
@@ -160,6 +169,16 @@ $(document).ready(function () {
         add_to_info("[TASK] Completed $.ajax()");
       });
 
+    return false;
+  });
+
+  $("#f_from-goto").click((ev) =>{
+    player.seekTo(f_fromTime.val());
+    return false;
+  });
+
+  $("#f_to-goto").click((ev) =>{
+    player.seekTo(f_toTime.val());
     return false;
   });
 });

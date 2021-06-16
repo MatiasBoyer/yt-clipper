@@ -1,5 +1,5 @@
 // --- VARS ---
-const PORT = 8000;
+const PORT = 80;
 const LIMIT_TIME = 15; // MINUTES
 const LIMIT_CALLS = 99999; // 40 calls per LIMIT_TIME minutes
 
