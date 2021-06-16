@@ -1,6 +1,8 @@
 import sched, threading, time
 from subprocess import PIPE, Popen
 
+CHECK_EVERY_N = 60 #seconds
+
 def exec_cmd(cmd):
     with Popen(cmd, stdout=PIPE, stderr=None, shell=True) as process:
         return process.communicate()[0].decode("utf-8")
@@ -22,7 +24,7 @@ def openServer():
     server = Popen(["npm", "run", "dev"], shell=True)
 
 def doCheck():
-    threading.Timer(5.0, doCheck).start()
+    threading.Timer(CHECK_EVERY_N, doCheck).start()
     if checkUpdates() == False:
         if server != None:
             server.terminate()
