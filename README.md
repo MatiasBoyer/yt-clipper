@@ -22,7 +22,7 @@ _Javascript libraries_
 * YouTube player API 
 
 ## License
-This proyect is made under the MIT License. Please read [LICENSE](LICENSE) for more details.
+This proyect is made under the GNU General Public License v3.0 License. Please read [LICENSE](LICENSE) for more details.
 
 ---
 Made with ❤️ by [Matias](https://github.com/MatiasBoyer)
