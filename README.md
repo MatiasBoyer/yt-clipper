@@ -2,8 +2,8 @@
 _Node.js/MongoDB frontend/backend that enables you to crop and download youtube videos_
 
 ## How to run
-You _must_ have installed npm in your system, and the node.js libraries.
-From a powershell, cd to the root folder and run _npm run dev_.
+You _must_ have installed npm AND python in your system, and the node.js libraries.
+<strike>From a powershell, cd to the root folder and run</strike> _npm run dev_ python .\runserver.py
 Both the frontend and backend are hosted on the same port.
 
 ## Made with
