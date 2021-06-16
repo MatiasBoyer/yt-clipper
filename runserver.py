@@ -21,7 +21,7 @@ def checkUpdates():
 
 server = None
 async def openServer():
-    server = Popen(["npm", "run", "dev"], shell=True)
+    server = Popen(["node", ".\\server.js"], shell=True)
 async def closeServer():
     global server
     if server != None:
