@@ -20,18 +20,20 @@
     </div>
   </head>
   <body style="font-family: Arial, Helvetica, sans-serif; font-size: medium">
-    <div
-      id="loadinggif"
-      style="
-        position: absolute;
-        z-index: 100;
-        top: 50%;
-        left: 50%;
-        margin-left: -75px;
-        margin-top: -80px;
-      "
-      class="loader"
-    ></div>
+    <div id="loading_back" class="loading_back">
+      <div
+        id="loadinggif"
+        style="
+          position: absolute;
+          z-index: 100;
+          top: 50%;
+          left: 50%;
+          margin-left: -75px;
+          margin-top: -80px;
+        "
+        class="loader"
+      ></div>
+    </div>
     <div
       style="
         position: fixed;
@@ -53,7 +55,8 @@
             value="5"
             step="0.01"
           />
-          <button id="f_from-set">SET</button><br />
+          <button id="f_from-set">SET</button>
+          <button id="f_from-goto">GO TO</button><br />
         </div>
         <div style="position: relative; left: 2.2%">
           TO
@@ -64,7 +67,8 @@
             value="15"
             step="0.01"
           />
-          <button id="f_to-set">SET</button><br />
+          <button id="f_to-set">SET</button>
+          <button id="f_to-goto">GO TO</button><br />
         </div>
         <button id="f_submit" type="submit" style="width: 200px">
           DOWNLOAD
