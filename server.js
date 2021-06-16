@@ -213,7 +213,7 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
       res.status(400);
       res.send({
         message:
-          "'FROM' is less than 'TO', meaning you're traveling back in time!",
+          `The video duration exceeds the limit of ${MAX_VIDEO_DURATION}s !`,
         req_id: null,
       });
       return;
