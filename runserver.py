@@ -1,4 +1,4 @@
-import sched, threading
+import sched, threading, time
 from subprocess import PIPE, Popen
 
 def exec_cmd(cmd):
@@ -27,6 +27,8 @@ def doCheck():
         if server != None:
             server.terminate()
         exec_cmd("git reset --hard origin/prod")
+
+        time.sleep(10)
         openServer()
 
 openServer()
