@@ -8,7 +8,7 @@ const LIMIT_CALLS = 100; // LIMIT_CALLS calls per LIMIT_TIME minutes
 
 // ------- AUTO-DELETE -------
 const AD_OLDER_THAN = 15; // MINUTES
-const AD_EVERY_MS = 20; // MINUTES
+const AD_EVERY_M = 20; // MINUTES
 
 // ---- NO EDIT ----
 const express = require("express");
@@ -87,7 +87,7 @@ function update_req(req_id, status, message) {
 
 function dl_vid(req_id, vid_id, from, to) {
   update_req(req_id, 1001, "Started.");
-  var yt_dl_cmd = `youtube-dl -f best -g \"https://www.youtube.com/watch?v=${vid_id}\"`;
+  var yt_dl_cmd = `youtube-dl -f 22/18/best -g \"https://www.youtube.com/watch?v=${vid_id}\"`;
 
   console.log("Started dl_vid");
   exec(yt_dl_cmd, (err, stdout, stderr) => {
@@ -186,7 +186,6 @@ function initMongo() {
       });
 
       app.post("/video/request", (req, res) => {
-        console.log(req.body);
         const { vid_id, from, to } = req.body;
 
         var from_val = parseFloat(from);
@@ -354,7 +353,7 @@ function initMongo() {
               );
             });
           });
-      }, AD_EVERY_MS * 60000);
+      }, AD_EVERY_M * 60000);
     }
   );
 }
