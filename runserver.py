@@ -1,3 +1,4 @@
+import sched, threading
 from subprocess import PIPE, Popen
 
 def exec_cmd(cmd):
@@ -5,12 +6,28 @@ def exec_cmd(cmd):
         return process.communicate()[0].decode("utf-8")
 
 def checkUpdates():
+    exec_cmd("git fetch --all")
     origin_hash = exec_cmd("git rev-parse origin/prod")
     local_hash = exec_cmd("git rev-parse prod")
 
     if origin_hash != local_hash:
-        print("[!] Out of date! Doing git pull..")
-    else:
-        print("[!] Up-to-date! Yay!")
+        print("[!] Out of date!")
+        return False
 
-checkUpdates()
+    print("[!] Up-to-date! Yay!")
+    return True
+
+server = None
+def openServer():
+    server = Popen(["npm", "run", "dev"], shell=True)
+
+def doCheck():
+    threading.Timer(5.0, doCheck).start()
+    if checkUpdates() == False:
+        if server != None:
+            server.terminate()
+        exec_cmd("git reset --hard origin/prod")
+        openServer()
+
+openServer()
+doCheck()
