@@ -1,7 +1,7 @@
 import sched, time, asyncio
 from subprocess import PIPE, Popen
 
-CHECK_EVERY_N = 60 #seconds
+CHECK_EVERY_N = 30 * 60
 
 def exec_cmd(cmd):
     with Popen(cmd, stdout=PIPE, stderr=None, shell=True) as process:
@@ -31,12 +31,12 @@ async def closeServer():
         await asyncio.sleep(5)
 
 async def check_for_updates():
-    await asyncio.sleep(10)
     return checkUpdates()    
 
 async def main():
     await openServer()
     while True:
+        await asyncio.sleep(CHECK_EVERY_N)
         needToUpdate = await check_for_updates()
         if needToUpdate:
             await closeServer()
