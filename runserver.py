@@ -21,7 +21,7 @@ def checkUpdates():
 
 server = None
 async def openServer():
-    server = Popen(["node", ".\\server.js"], shell=True)
+    server = Popen(["nodemon", ".\\server.js", "--watch *.*"], shell=True)
 async def closeServer():
     global server
     if server != None:
@@ -39,7 +39,6 @@ async def main():
         await asyncio.sleep(CHECK_EVERY_N)
         needToUpdate = await check_for_updates()
         if needToUpdate:
-            await closeServer()
             exec_cmd("git reset --hard origin/prod")
             await openServer()
 
