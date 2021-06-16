@@ -25,7 +25,8 @@ var db_username = "";
 var db_password = "";
 var MongoCONN = "";
 
-const normalChars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
+const normalChars =
+  "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
 const dl_location = __dirname + "\\tmp";
 
 // -- CODE --
@@ -33,27 +34,36 @@ const dl_location = __dirname + "\\tmp";
 var console = {};
 console.log = function (data, toFile = true) {
   process.stdout.write(data + "\n");
-  var datestr = new Date().toISOString().
-  replace(/T/, ' ').      // replace T with a space
-  replace(/\..+/, '')     // delete the dot and everything after
+  var datestr = new Date()
+    .toISOString()
+    .replace(/T/, " ") // replace T with a space
+    .replace(/\..+/, ""); // delete the dot and everything after
   if (toFile) {
-    fs.appendFile(__dirname + "\\log\\stdout", `\n[${datestr}]\n${data}`, (err) => {
-      if (err) throw err;
-    });
+    fs.appendFile(
+      __dirname + "\\log\\stdout.txt",
+      `\n[${datestr}]\n${data}`,
+      (err) => {
+        if (err) throw err;
+      }
+    );
   }
 };
 console.error = function (data, toFile = true) {
   process.stderr.write(data + "\n");
-  var datestr = new Date().toISOString().
-  replace(/T/, ' ').      // replace T with a space
-  replace(/\..+/, '')     // delete the dot and everything after
+  var datestr = new Date()
+    .toISOString()
+    .replace(/T/, " ") // replace T with a space
+    .replace(/\..+/, ""); // delete the dot and everything after
   if (toFile) {
-    fs.appendFile(__dirname + "\\log\\stderr", `\n[${datestr}]\n${data}`, (err) => {
-      if (err) throw err;
-    });
+    fs.appendFile(
+      __dirname + "\\log\\stderr.txt",
+      `\n[${datestr}]\n${data}`,
+      (err) => {
+        if (err) throw err;
+      }
+    );
   }
 };
-
 
 async function load_dbaccess() {
   const fstream = fs.createReadStream(__dirname + "\\access");
@@ -313,19 +323,29 @@ function initMongo() {
             res.send({ message: "string contains special characters!" });
             return;
           }
-        }
 
-        delete_vid(
-          req_id,
-          () => {
-            res.status(200);
-            res.send({ message: "ok" });
-          },
-          (err) => {
-            res.status(400);
-            res.send({ message: err });
-          }
-        );
+          delete_vid(
+            req_id,
+            () => {
+              res.status(200);
+              res.send({ message: "ok" });
+            },
+            (err) => {
+              res.status(400);
+              res.send({ message: err });
+            }
+          );
+        }
+      });
+      
+      app.get("/debug/stdout", (req, res) => {
+        res.status(200);
+        res.sendFile(`${__dirname}\\log\\stdout.txt`);
+      });
+      
+      app.get("/debug/stderr", (req, res) => {
+        res.status(200);
+        res.sendFile(`${__dirname}\\log\\stderr.txt`);
       });
 
       app.get("/", (req, res) => {
@@ -333,7 +353,7 @@ function initMongo() {
       });
 
       app.listen(PORT, () =>
-        console.log(`Started on http://localhost:${PORT}`)
+        console.log(`Started on port ${PORT}`)
       );
 
       setInterval(() => {
