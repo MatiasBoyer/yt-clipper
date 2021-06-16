@@ -1,0 +1,94 @@
+
+[1623779377329]
+Error: Command failed: ffmpeg -ss NaN -i "https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623800976&ei=MOjIYNydGpmYobIPq-2GOA&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AGIBmRpKLqtoO1BoWtnytkcQcJMZuXjuMgfybLMS1VwK&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&initcwndbps=1065000&vprv=1&mime=video%2Fmp4&ns=DAME450S_hoCZbfc2YtjthAF&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623778616&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5531432&n=nkBoIAWVhkLoum&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAPInwOmkQRAKYLXTR-kD_7oujOoifTYs101h3L6JaaEqAiEA0HU50UNhZ-FwTyq976yPNSiuJwsBLLNm8zMt3EHlZKg%3D&sig=AOq0QJ8wRAIgAnqCCyptEJ6_qLWW3n7f-9iz-uXZfYlwgbsbsSZXnX8CIFIFNNeGW2g58gb8huLT5ECvssS_oH1abXA3lnSlx1Br " -t NaN -c:v copy -c:a aac D:\MB\dev\SOURCE\yt_clipper\tmp\1623779373.913-6ejTmoFLjbZQDfTFyqpZjN.mp4
+ffmpeg version 4.4-full_build-www.gyan.dev Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 10.2.0 (Rev6, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libdav1d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libglslang --enable-vulkan --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Invalid duration specification for ss: NaN
+
+[1623779575098]
+Error: Command failed: ffmpeg -ss NaN -i "https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623801174&ei=9ujIYKXVDOajobIP1det-A8&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AB1QQI0SUnlKEGJUxMxXrA5jg1Nk7mOFA3_5iejUl5pp&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&pcm2=yes&initcwndbps=1086250&vprv=1&mime=video%2Fmp4&ns=YhwXufW0fyyd-Hc_F0fMCw0F&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623779335&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5531432&n=ztAitWu8pa13ji&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cpcm2%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIgCzhJk3jux7vXpihDtmdtRLAaAN3ejQ9iQJlJpvuCRV0CIQDc_iwQHWhHHSnXJqOwvsmRebxmM45l8UZiW-a8J7dMZg%3D%3D&sig=AOq0QJ8wRAIgBuWNdMI2tyWMuTQrEMCLMbFKAgicc-lhBNb6Gs2ftFsCIA2ZktKImxbXJTnHREI1_e4WQH-WRT_Eo5SD4mtqa13Q " -t NaN -c:v copy -c:a aac D:\MB\dev\SOURCE\yt_clipper\tmp\1623779572.306-us1S6PrNCpUn85GVMouBby.mp4
+ffmpeg version 4.4-full_build-www.gyan.dev Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 10.2.0 (Rev6, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libdav1d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libglslang --enable-vulkan --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Invalid duration specification for ss: NaN
+
+[1623779618511]
+Error: Command failed: ffmpeg -ss 68 -i "https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623801216&ei=IOnIYKOlGYi_wQSH2rmIAQ&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AEiKXfw0zmZF_QXTT01-GVn40ho4aEeXaDyHpArBZBCE&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&initcwndbps=1086250&vprv=1&mime=video%2Fmp4&ns=3GAwmhZQl6jM18K-Nzy7dQIF&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623779335&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5531432&n=hm-_Qa4Y-7qZgH5Pr&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAKulx9TEkZIowHiBhtcjiyJQbgrYHEDUPAKZEMwrwAKYAiAfnSBBTii1r2tzqHePXs468-qvMm6Ny48_hzkUr0-2ig%3D%3D&sig=AOq0QJ8wRQIhAOirqzrIaFDOLfJqbltQdbUwqJZZHfQsGiRY8Ah7d94PAiBnDRE6fHxdipU3N24T2eN8XHMVtKbWWvdMmwrnMmMCjA== " -t NaN -c:v copy -c:a aac D:\MB\dev\SOURCE\yt_clipper\tmp\1623779614.245-arhUwMLeMbzthvq4aLeRT7.mp4
+ffmpeg version 4.4-full_build-www.gyan.dev Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 10.2.0 (Rev6, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libdav1d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libglslang --enable-vulkan --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623801216&ei=IOnIYKOlGYi_wQSH2rmIAQ&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AEiKXfw0zmZF_QXTT01-GVn40ho4aEeXaDyHpArBZBCE&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&initcwndbps=1086250&vprv=1&mime=video%2Fmp4&ns=3GAwmhZQl6jM18K-Nzy7dQIF&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623779335&fvip=2&fexp=24001373%2C24007246&c=WEB&txp=5531432&n=hm-_Qa4Y-7qZgH5Pr&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRQIhAKulx9TEkZIowHiBhtcjiyJQbgrYHEDUPAKZEMwrwAKYAiAfnSBBTii1r2tzqHePXs468-qvMm6Ny48_hzkUr0-2ig%3D%3D&sig=AOq0QJ8wRQIhAOirqzrIaFDOLfJqbltQdbUwqJZZHfQsGiRY8Ah7d94PAiBnDRE6fHxdipU3N24T2eN8XHMVtKbWWvdMmwrnMmMCjA== ':
+  Metadata:
+    major_brand     : mp42
+    minor_version   : 0
+    compatible_brands: isommp42
+    creation_time   : 2019-12-30T16:04:13.000000Z
+  Duration: 00:02:34.95, start: 0.000000, bitrate: 369 kb/s
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709), 640x360 [SAR 1:1 DAR 16:9], 271 kb/s, 30 fps, 30 tbr, 15360 tbn, 60 tbc (default)
+    Metadata:
+      creation_time   : 2019-12-30T16:04:13.000000Z
+      handler_name    : ISO Media file produced by Google Inc. Created on: 12/30/2019.
+      vendor_id       : [0][0][0][0]
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 95 kb/s (default)
+    Metadata:
+      creation_time   : 2019-12-30T16:04:13.000000Z
+      handler_name    : ISO Media file produced by Google Inc. Created on: 12/30/2019.
+      vendor_id       : [0][0][0][0]
+Invalid duration specification for t: NaN
+
+[1623779630469]
+Error: Command failed: ffmpeg -ss 68 -i "https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623801229&ei=LenIYPDmDoi_wQSH2rmIAQ&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AAhTGSpME9laYdky3-l6X_qIxOGhCRSlvtGGc2kuSUoJ&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&initcwndbps=1086250&vprv=1&mime=video%2Fmp4&ns=dkcIFBIbYm-8WgiEWb6Nbk4F&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623779335&fvip=2&fexp=24001373%2C24007246&beids=24010698&c=WEB&txp=5531432&n=IcH3mFtN1RsPTt&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgB5hoQWKtwzqp7DVkwY5477AN9XwBcoWUu4UNmVm_Y70CIEtNKgZnqpL0OnTSk4yMowkJ6l6VYB73GKG9RrQXDvrL&sig=AOq0QJ8wRQIhALeGdv5u56rVovNFuatqC3KPp3d-x9zy3aYh_2kXBql_AiBhRaBw5av6R5noHIsv-4PLhecjUO_A8F532J-RXMq5PQ== " -t NaN -c:v copy -c:a aac D:\MB\dev\SOURCE\yt_clipper\tmp\1623779627.199-iXhuviXgNG6AZaS9SmFDqP.mp4
+ffmpeg version 4.4-full_build-www.gyan.dev Copyright (c) 2000-2021 the FFmpeg developers
+  built with gcc 10.2.0 (Rev6, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-sdl2 --enable-libdav1d --enable-libzvbi --enable-librav1e --enable-libsvtav1 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-d3d11va --enable-dxva2 --enable-libmfx --enable-libglslang --enable-vulkan --enable-opencl --enable-libcdio --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libilbc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint
+  libavutil      56. 70.100 / 56. 70.100
+  libavcodec     58.134.100 / 58.134.100
+  libavformat    58. 76.100 / 58. 76.100
+  libavdevice    58. 13.100 / 58. 13.100
+  libavfilter     7.110.100 /  7.110.100
+  libswscale      5.  9.100 /  5.  9.100
+  libswresample   3.  9.100 /  3.  9.100
+  libpostproc    55.  9.100 / 55.  9.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'https://r7---sn-uxaxjxougv-x1xez.googlevideo.com/videoplayback?expire=1623801229&ei=LenIYPDmDoi_wQSH2rmIAQ&ip=2800%3A810%3A484%3A82f7%3A843f%3Ae313%3A215d%3A54a3&id=o-AAhTGSpME9laYdky3-l6X_qIxOGhCRSlvtGGc2kuSUoJ&itag=18&source=youtube&requiressl=yes&mh=B5&mm=31%2C29&mn=sn-uxaxjxougv-x1xez%2Csn-x1x7dn7z&ms=au%2Crdu&mv=m&mvi=7&pl=48&initcwndbps=1086250&vprv=1&mime=video%2Fmp4&ns=dkcIFBIbYm-8WgiEWb6Nbk4F&gir=yes&clen=7158612&ratebypass=yes&dur=154.946&lmt=1577721855869032&mt=1623779335&fvip=2&fexp=24001373%2C24007246&beids=24010698&c=WEB&txp=5531432&n=IcH3mFtN1RsPTt&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cratebypass%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgB5hoQWKtwzqp7DVkwY5477AN9XwBcoWUu4UNmVm_Y70CIEtNKgZnqpL0OnTSk4yMowkJ6l6VYB73GKG9RrQXDvrL&sig=AOq0QJ8wRQIhALeGdv5u56rVovNFuatqC3KPp3d-x9zy3aYh_2kXBql_AiBhRaBw5av6R5noHIsv-4PLhecjUO_A8F532J-RXMq5PQ== ':
+  Metadata:
+    major_brand     : mp42
+    minor_version   : 0
+    compatible_brands: isommp42
+    creation_time   : 2019-12-30T16:04:13.000000Z
+  Duration: 00:02:34.95, start: 0.000000, bitrate: 369 kb/s
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709), 640x360 [SAR 1:1 DAR 16:9], 271 kb/s, 30 fps, 30 tbr, 15360 tbn, 60 tbc (default)
+    Metadata:
+      creation_time   : 2019-12-30T16:04:13.000000Z
+      handler_name    : ISO Media file produced by Google Inc. Created on: 12/30/2019.
+      vendor_id       : [0][0][0][0]
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 95 kb/s (default)
+    Metadata:
+      creation_time   : 2019-12-30T16:04:13.000000Z
+      handler_name    : ISO Media file produced by Google Inc. Created on: 12/30/2019.
+      vendor_id       : [0][0][0][0]
+Invalid duration specification for t: NaN

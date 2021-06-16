@@ -5,21 +5,22 @@
     <link rel="stylesheet" href="css/index.css" />
     <link rel="icon" href="img/cutter.png" />
     <script src="js/jquery-3.6.0.min.js"></script>
-    <script src="js/index.js"></script>
-    <div style="text-align: center; transform: translate(0, 25%)">
+    <script src="js/ytplayer.js"></script>
+    <script src="js/player.js"></script>
+    <div style="text-align: center; transform: translate(0, 10%)">
       <a id="img_header_href" href="">
         <img
           src="img/cutter.png"
           alt="YT cutter"
           width="200"
           height="200"
-          style="height: 25%; width: auto"
+          style="height: 150px; width: auto"
         />
       </a>
     </div>
   </head>
   <body style="font-family: Arial, Helvetica, sans-serif; font-size: medium">
-    <!--<div
+    <div
       id="loadinggif"
       style="
         position: absolute;
@@ -30,9 +31,7 @@
         margin-top: -80px;
       "
       class="loader"
-    >
-      <img src="img/loading.gif" alt="loading..." width="200" height="200">
-    </div>-->
+    ></div>
     <div
       style="
         position: fixed;
@@ -42,16 +41,53 @@
         transform: translate(-50%, -50%);
       "
     >
-      <form id="f_videoSelect">
-        <input
-          id="f_videoUrl"
-          type="text"
-          placeholder="https://www.youtube.com/watch?v=XNo8xB-Xwpk"
-          value=""
-          style="width: 350px"
-        /><br />
-        <button type="submit">CLIP</button>
+      <div id="player" style="transform: translate(0, -10%)"></div>
+      <br />
+      <form id="f_videocontrols" style="transform: translate(0, -40%)">
+        <div style="position: relative; left: 0%">
+          FROM
+          <input
+            id="f_fromTime"
+            type="number"
+            style="width: 100px"
+            value="5"
+            step="0.01"
+          />
+          <button id="f_from-set">SET</button><br />
+        </div>
+        <div style="position: relative; left: 2.2%">
+          TO
+          <input
+            id="f_toTime"
+            type="number"
+            style="width: 100px"
+            value="15"
+            step="0.01"
+          />
+          <button id="f_to-set">SET</button><br />
+        </div>
+        <button id="f_submit" type="submit" style="width: 200px">
+          DOWNLOAD
+        </button>
       </form>
+    </div>
+    <div
+      style="
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 175%);
+      "
+    >
+      <textarea
+        id="info_text"
+        name="info_text"
+        cols="100"
+        rows="7"
+        style="text-align: center; border: none; resize: none"
+        readonly
+      ></textarea>
     </div>
   </body>
   <div class="footer">
