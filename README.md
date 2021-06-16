@@ -6,7 +6,6 @@ You _must_ have installed npm in your system, and the node.js libraries.
 From a powershell, cd to the root folder and run _npm run dev_.
 Both the frontend and backend are hosted on the same port.
 
----
 ## Made with
 * Node.js
 * MongoDB
@@ -17,7 +16,7 @@ _Node.js libraries_
 * body-parser
 * express-rate-limit
 * mongodb
----
+
 _Javascript libraries_
 * jQuery
 * YouTube player API 
