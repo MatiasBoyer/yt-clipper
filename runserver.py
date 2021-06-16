@@ -1,4 +1,4 @@
-import sched, threading, time
+import sched, time, asyncio
 from subprocess import PIPE, Popen
 
 CHECK_EVERY_N = 60 #seconds
@@ -14,26 +14,41 @@ def checkUpdates():
 
     if origin_hash != local_hash:
         print("[!] Out of date!")
-        return False
+        return True
 
     print("[!] Up-to-date! Yay!")
-    return True
+    return False
 
 server = None
 def openServer():
     server = Popen(["npm", "run", "dev"], shell=True)
-
-def doCheck():
+def closeServer():
     global server
-    threading.Timer(CHECK_EVERY_N, doCheck).start()
-    if checkUpdates() == False:
-        if server != None:
-            server.kill()
-            server = None
-        exec_cmd("git reset --hard origin/prod")
-        
-        time.sleep(2)
-        threading.Timer(30, openServer).start()
+    if server != None:
+        server.kill()
+        server.terminate()
+        server = None
 
-doCheck()
-openServer()
+async def check_for_updates():
+    await asyncio.sleep(10)
+    needToUpdate = checkUpdates()
+    if needToUpdate == True:
+        closeServer()
+        while server != None:
+            await asyncio.sleep(1)
+
+        exec_cmd("git reset --hard origin/prod")
+
+async def forever_update():
+    while True:
+        await check_for_updates()
+
+loop = asyncio.get_event_loop()
+task = loop.create_task(forever_update())
+
+try:
+    openServer()
+    loop.run_until_complete(task)
+    loop.run_forever()
+except asyncio.CancelledError:
+    pass
