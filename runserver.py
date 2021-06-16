@@ -24,14 +24,16 @@ def openServer():
     server = Popen(["npm", "run", "dev"], shell=True)
 
 def doCheck():
+    global server
     threading.Timer(CHECK_EVERY_N, doCheck).start()
     if checkUpdates() == False:
         if server != None:
-            server.terminate()
+            server.kill()
+            server = None
         exec_cmd("git reset --hard origin/prod")
+        
+        time.sleep(2)
+        threading.Timer(30, openServer).start()
 
-        time.sleep(10)
-        openServer()
-
-openServer()
 doCheck()
+openServer()
