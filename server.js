@@ -1,5 +1,6 @@
 // ------- CONFIG -------
 const PORT = 80;
+const MAX_VIDEO_DURATION = 300;
 
 // ------- CALLs LIMIT -------
 const LIMIT_TIME = 15; // MINUTES
@@ -47,6 +48,8 @@ async function load_dbaccess()
 
   MongoCONN = MongoCONN.replace("DB-USER", db_username);
   MongoCONN = MongoCONN.replace("DB-PASS", db_password);
+
+  console.log(`Connecting with ${MongoCONN}`);
 }
 
 const dl_location = __dirname + "\\tmp";
@@ -196,6 +199,17 @@ MongoClient.connect(MongoCONN, { useUnifiedTopology: true }, (err, client) => {
     }
 
     if (from_val >= to_val) {
+      res.status(400);
+      res.send({
+        message:
+          "'FROM' is less than 'TO', meaning you're traveling back in time!",
+        req_id: null,
+      });
+      return;
+    }
+
+    if((to_val - from_val) > MAX_VIDEO_DURATION)
+    {
       res.status(400);
       res.send({
         message:
