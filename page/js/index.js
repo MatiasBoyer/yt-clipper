@@ -4,7 +4,17 @@ $(document).ready(function () {
   $("#f_videoSelect").submit((ev) => {
     try {
       var url_parse = new URL($("#f_videoUrl").val());
-      var vID = url_parse.searchParams.get("v");
+
+      console.log(url_parse.pathname);
+
+      if(url_parse.pathname.includes("?v="))
+      {
+        var vID = url_parse.searchParams.get("v");
+      }
+      else
+      {
+        vID = url_parse.pathname.replace("/", "");
+      }
 
       window.location = window.location.origin + "/player.html?v=" + vID;
     } catch (e) {

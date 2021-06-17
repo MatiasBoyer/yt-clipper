@@ -33,12 +33,11 @@ const dl_location = __dirname + "\\tmp";
 
 var console = {};
 console.log = function (data, toFile = true) {
-  process.stdout.write(data + "\n");
-  var datestr = new Date()
-    .toISOString()
-    .replace(/T/, " ") // replace T with a space
-    .replace(/\..+/, ""); // delete the dot and everything after
   if (toFile) {
+    var datestr = new Date()
+      .toISOString()
+      .replace(/T/, " ") // replace T with a space
+      .replace(/\..+/, ""); // delete the dot and everything after
     fs.appendFile(
       __dirname + "\\log\\stdout.txt",
       `\n[${datestr}]\n${data}`,
@@ -47,14 +46,15 @@ console.log = function (data, toFile = true) {
       }
     );
   }
+
+  process.stdout.write(data + "\n");
 };
 console.error = function (data, toFile = true) {
-  process.stderr.write(data + "\n");
-  var datestr = new Date()
-    .toISOString()
-    .replace(/T/, " ") // replace T with a space
-    .replace(/\..+/, ""); // delete the dot and everything after
   if (toFile) {
+    var datestr = new Date()
+      .toISOString()
+      .replace(/T/, " ") // replace T with a space
+      .replace(/\..+/, ""); // delete the dot and everything after
     fs.appendFile(
       __dirname + "\\log\\stderr.txt",
       `\n[${datestr}]\n${data}`,
@@ -63,6 +63,7 @@ console.error = function (data, toFile = true) {
       }
     );
   }
+  process.stderr.write(data + "\n");
 };
 
 async function load_dbaccess() {
@@ -337,24 +338,26 @@ function initMongo() {
           );
         }
       });
-      
-      app.get("/debug/stdout", (req, res) => {
-        res.status(200);
-        res.sendFile(`${__dirname}\\log\\stdout.txt`);
-      });
-      
-      app.get("/debug/stderr", (req, res) => {
-        res.status(200);
-        res.sendFile(`${__dirname}\\log\\stderr.txt`);
+
+      app.get("/debug", (req, res) => {
+        const { type } = req.query;
+        switch (type) {
+          case "stdout":
+            res.status(200);
+            res.sendFile(`${__dirname}\\log\\stdout.txt`);
+            break;
+          case "stderr":
+            res.status(200);
+            res.sendFile(`${__dirname}\\log\\stderr.txt`);
+            break;
+        }
       });
 
       app.get("/", (req, res) => {
         res.sendFile("page/index.html", { root: __dirname });
       });
 
-      app.listen(PORT, () =>
-        console.log(`Started on port ${PORT}`)
-      );
+      app.listen(PORT, () => console.log(`Started on port ${PORT}`));
 
       setInterval(() => {
         db_requests
