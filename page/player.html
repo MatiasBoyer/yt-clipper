@@ -8,19 +8,14 @@
     <script src="js/ytplayer.js"></script>
     <script src="js/player.js"></script>
     <script src="js/download2.js"></script>
-    <div style="text-align: center; transform: translate(0, 10%)">
-      <a id="img_header_href" href="">
-        <img
-          src="img/cutter.png"
-          alt="YT Trimmer"
-          width="200"
-          height="200"
-          style="height: 150px; width: auto"
-        />
-      </a>
-    </div>
   </head>
-  <body style="font-family: Arial, Helvetica, sans-serif; font-size: medium">
+
+  <body>
+    <iframe
+      src="./pages/header.html"
+      onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"
+    ></iframe>
+    <!-- LOADING BACKGROUND -->
     <div id="loading_back" class="loading_back">
       <div
         id="loadinggif"
@@ -35,92 +30,112 @@
         class="loader"
       ></div>
     </div>
-    <div
-      style="
-        position: fixed;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      "
-    >
-      <div id="player" style="transform: translate(0, -10%)"></div>
-      <br />
-      <form id="f_videocontrols" style="transform: translate(0, -40%)">
-        <div style="position: relative; left: 0%">
-          FROM
-          <input
-            id="f_fromTime"
-            type="number"
-            style="width: 100px"
-            value="5"
-            step="0.01"
-            min="0"
-            max="100"
-          />
-          <button id="f_from-set">SET</button>
-          <button id="f_from-goto">GO TO</button><br />
-        </div>
-        <div style="position: relative; left: 2.2%">
-          TO
-          <input
-            id="f_toTime"
-            type="number"
-            style="width: 100px"
-            value="15"
-            step="0.01"
-            min="0"
-            max="100"
-          />
-          <button id="f_to-set">SET</button>
-          <button id="f_to-goto">GO TO</button><br />
-        </div>
-        <button id="f_submit" type="submit" style="width: 200px">
-          DOWNLOAD
-        </button>
-      </form>
-    </div>
-    <div
-      style="
-        position: fixed;
-        text-align: center;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, 175%);
-      "
-    >
-      <textarea
-        id="info_text"
-        name="info_text"
-        cols="100"
-        rows="7"
-        style="text-align: center; border: none; resize: none"
-        readonly
-      ></textarea>
-    </div>
+    <section>
+      <!-- PLAYER & AJAX REQUEST -->
+      <table
+        class="table_center"
+        style="color: white; text-shadow: 2px 2px 4px #000000"
+      >
+        <tr>
+          <td colspan="4"><div id="player"></div></td>
+        </tr>
+        <tr>
+          <td style="width: 125px">FROM</td>
+          <td style="width: 225px">
+            <input
+              id="f_fromTime"
+              type="number"
+              class="textinput"
+              style="width: 175px; padding: 2px"
+              value="3"
+              step="0.01"
+              min="0"
+              max="100"
+            />
+          </td>
+          <td style="width: 100px">
+            <button
+              id="f_from-set"
+              class="button-offset"
+              style="width: 75px; text-indent: -14px"
+            >
+              SET
+            </button>
+          </td>
+          <td style="width: 100px">
+            <button id="f_from-goto" class="button-offset" style="width: 135px">
+              GO TO
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 125px">TO</td>
+          <td style="width: 225px">
+            <input
+              id="f_toTime"
+              type="number"
+              class="textinput"
+              style="width: 175px; padding: 2px"
+              value="18"
+              step="0.01"
+              min="0"
+              max="100"
+            />
+          </td>
+          <td style="width: 100px">
+            <button
+              id="f_to-set"
+              class="button-offset"
+              style="width: 75px; text-indent: -14px"
+            >
+              SET
+            </button>
+          </td>
+          <td style="width: 100px">
+            <button id="f_to-goto" class="button-offset" style="width: 135px">
+              GO TO
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td colspan="2">
+            <button
+              id="f_submit"
+              type="submit"
+              class="button-offset"
+              style="width: 200px"
+            >
+              DOWNLOAD
+            </button>
+          </td>
+          <td></td>
+        </tr>
+      </table>
+      <!-- CONSOLE (DISABLED)
+      <div
+        style="
+          position: fixed;
+          text-align: center;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, 275%);
+        "
+      >
+        <textarea
+          id="info_text"
+          name="info_text"
+          cols="100"
+          rows="7"
+          style="text-align: center; border: none; resize: none"
+          readonly
+        ></textarea>
+      </div>-->
+    </section>
+    <!-- FOOTER INSERT -->
+    <iframe
+      src="./pages/footer.html"
+      onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"
+    ></iframe>
   </body>
-  <div class="footer">
-    <table style="width: 100%">
-      <tr style="font-size: 12px">
-        <th style="width: 50%">
-          <a href="https://github.com/MatiasBoyer/yt-clipper">Github</a>
-        </th>
-        <th style="width: 50%">
-          Icons made by
-          <a
-            href="https://www.flaticon.com/authors/smashicons"
-            title="Smashicons"
-            >Smashicons</a
-          >
-          from
-          <a href="https://www.flaticon.com/" title="Flaticon"
-            >www.flaticon.com</a
-          >
-        </th>
-      </tr>
-      <tr style="font-size: 18px">
-        <th colspan="2">Made by <i>bigma</i></th>
-      </tr>
-    </table>
-  </div>
 </html>

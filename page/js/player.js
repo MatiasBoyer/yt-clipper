@@ -1,31 +1,29 @@
 const sv = window.location.origin;
-const timeout = 3000;
+const timeout = 60 * 15;
 const check_vid_ms = 5000;
+const fixed_decimals = 1;
 
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
 }
 
-function roundToFixed2(num) {
-  return (Math.round(parseFloat(num) * 100) / 100).toFixed(2);
+function roundToFixed(num, fixed) {
+  return (Math.round(parseFloat(num) * 100) / 100).toFixed(fixed);
 }
 
 $(document).ready(function () {
-  $("#img_header_href").attr("href", window.location.origin);
-
   var url_parse = new URL(window.location);
   var vID = url_parse.searchParams.get("v");
 
   var f_fromTime = $("#f_fromTime");
   var f_toTime = $("#f_toTime");
 
+  var loading_back = $(".loading_back");
+
   CreateYTPlayer(vID, () => {
     f_fromTime.attr("max", player.getDuration());
     f_toTime.attr("max", player.getDuration());
   });
-
-  $("#loadinggif").hide();
-  $(".loading_back").toggleClass("loading_back_off");
 
   $("textarea")
     .attr("unselectable", "on")
@@ -41,18 +39,21 @@ $(document).ready(function () {
 
   // ADD TO CMD LINE
   function add_to_info(line) {
-    info_text.val(info_text.val() + line + "\n");
-    info_text.scrollTop(info_text[0].scrollHeight - info_text.height());
+    //info_text.val(info_text.val() + line + "\n");
+    //info_text.scrollTop(info_text[0].scrollHeight - info_text.height());
+    console.log(line);
   }
   add_to_info("$(document).ready() !");
 
+  loading_back.css("z-index", -100);
+  loading_back.fadeOut(1);
+
   function enable_loadingfeedback(enable) {
     if (enable == true) {
-      $("#loadinggif").show("slow");
-      $(".loading_back").toggleClass("loading_back_on");
+      loading_back.fadeIn("slow");
+      loading_back.css("z-index", 1000);
     } else {
-      $("#loadinggif").hide("slow");
-      $(".loading_back").toggleClass("loading_back_on");
+      loading_back.fadeOut("fast");
     }
   }
 
@@ -75,15 +76,8 @@ $(document).ready(function () {
       } else {
         if (code != "1003") {
           setTimeout(() => {
-            /*var url = sv + `/video/download?req_id=${reqid}`;
-            window.location = url;*/
             var url = sv + `/video/${reqid}.mp4`;
             window.location = url;
-
-            /*$.ajax({
-              url: url,
-              success: download.bind(true, "video/mp4", `${reqid}.mp4`),
-            });*/
 
             enable_loadingfeedback(false);
           }, 1000);
@@ -97,7 +91,7 @@ $(document).ready(function () {
 
   $("#f_from-set").click(() => {
     var curr = parseFloat(player.getCurrentTime());
-    var num = parseFloat(roundToFixed2(curr));
+    var num = parseFloat(roundToFixed(curr, fixed_decimals));
 
     if (curr > f_toTime.val()) {
       f_toTime.val(num + 1);
@@ -110,7 +104,7 @@ $(document).ready(function () {
 
   $("#f_to-set").click(() => {
     var curr = parseFloat(player.getCurrentTime());
-    var num = parseFloat(roundToFixed2(curr));
+    var num = parseFloat(roundToFixed(curr, fixed_decimals));
 
     if (curr < f_fromTime.val()) {
       f_fromTime.val(num - 1);
@@ -143,8 +137,8 @@ $(document).ready(function () {
     }
   });
 
-  $("#f_videocontrols").submit((ev) => {
-    $(this).find("button[type='submit']").prop("disabled", true);
+  $("#f_submit").click((ev) => {
+    $("#f_submit").prop("disabled", true);
 
     var f_fromTime = $("#f_fromTime");
     var f_toTime = $("#f_toTime");
@@ -167,23 +161,21 @@ $(document).ready(function () {
       type: "POST",
       url: sv + "/video/request",
       data: obj_data,
-      dataType: "json",
-      timeout: timeout,
+      dataType: "json"
     })
       .done((res) => {
-        add_to_info(`DONE -> ${res["req_id"]}`);
-        add_to_info("Starting task checking progress");
-
-        /*$(this).delay(1000).queue(() => 
-            {
-                check_request(res["req_id"])
-                $(this).dequeue();
-            });*/
-        setTimeout(() => check_request(res["req_id"]), 4000);
+        console.log(res);
+        var code = parseInt(res["code"]);
+        
+        switch(code)
+        {
+          case 1002:
+            window.location = window.origin + `/video/${res["req_id"]}.mp4`;
+            break;
+        }
       })
       .fail((err) => {
-        var obj = JSON.parse(err.responseText);
-        add_to_info(`ERROR -> ${obj["message"]}`);
+        console.log(err["message"]);
         enable_loadingfeedback(false);
 
         $(this).find("button[type='submit']").prop("disabled", false);
