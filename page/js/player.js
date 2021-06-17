@@ -19,7 +19,10 @@ $(document).ready(function () {
   var f_fromTime = $("#f_fromTime");
   var f_toTime = $("#f_toTime");
 
-  CreateYTPlayer(vID);
+  CreateYTPlayer(vID, () => {
+    f_fromTime.attr("max", player.getDuration());
+    f_toTime.attr("max", player.getDuration());
+  });
 
   $("#loadinggif").hide();
   $(".loading_back").toggleClass("loading_back_off");
@@ -73,9 +76,15 @@ $(document).ready(function () {
         if (code != "1003") {
           setTimeout(() => {
             /*var url = sv + `/video/download?req_id=${reqid}`;
-            console.log(url);
             window.location = url;*/
             var url = sv + `/video/${reqid}.mp4`;
+
+            $.ajax({
+              url: url,
+              success: download.bind(true, "video/mp4", `${reqid}.mp4`),
+            });
+
+            enable_loadingfeedback(false);
           }, 1000);
         } else {
           add_to_info(`ERROR -> ${res["message"]}`);
@@ -123,11 +132,11 @@ $(document).ready(function () {
       f_fromTime.val(0);
     }
 
-    if (to > getDuration()) {
-      f_toTime.val(getDuration());
+    if (to > player.getDuration()) {
+      f_toTime.val(player.getDuration());
     }
 
-    if (from > getDuration()) {
+    if (from > player.getDuration()) {
       f_toTime.val(5);
       f_fromTime.val(0);
     }
