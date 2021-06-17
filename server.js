@@ -339,6 +339,20 @@ function initMongo() {
         }
       });
 
+      app.get("/video/*", (req, res) => {
+        const file = __dirname + req.url.replace("video", "tmp");
+        fs.stat(file, (err, stats) => {
+          if (err) {
+            res.status(400);
+            res.send({ message: `Error: ${err}` });
+            return;
+          } else {
+            res.status(200);
+            res.sendFile(file);
+          }
+        });
+      });
+
       app.get("/debug", (req, res) => {
         const { type } = req.query;
         switch (type) {

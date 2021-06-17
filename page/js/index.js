@@ -7,7 +7,7 @@ $(document).ready(function () {
 
       console.log(url_parse.pathname);
 
-      if(url_parse.pathname.includes("?v="))
+      if(url_parse.pathname.includes("watch"))
       {
         var vID = url_parse.searchParams.get("v");
       }
