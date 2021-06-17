@@ -1,16 +1,6 @@
-// ------- CONFIG -------
-const PORT = 80;
-const MAX_VIDEO_DURATION = 300;
-
-// ------- CALLs LIMIT -------
-const LIMIT_TIME = 15; // MINUTES
-const LIMIT_CALLS = 100; // LIMIT_CALLS calls per LIMIT_TIME minutes
-
-// ------- AUTO-DELETE -------
-const AD_OLDER_THAN = 15; // MINUTES
-const AD_EVERY_M = 20; // MINUTES
-
 // ---- NO EDIT ----
+const conf = require("./config.js");
+const err = require("./errors.js");
 const express = require("express");
 const short = require("short-uuid");
 const bp = require("body-parser");
@@ -142,8 +132,8 @@ function initMongo() {
       console.log("Connected to MongoDB");
 
       const limiter = rateLimit({
-        windowMs: LIMIT_TIME * 60 * 1000,
-        max: LIMIT_CALLS,
+        windowMs: conf.LIMIT_TIME * 60 * 1000,
+        max: conf.LIMIT_CALLS,
         onLimitReached: (req, res, options) => {
           res.status(429);
           res.send({
@@ -197,73 +187,59 @@ function initMongo() {
       });
 
       app.post("/video/request", (req, res) => {
-        const { vid_id, from, to } = req.body;
+        try {
+          const { vid_id, from, to } = req.body;
 
-        var from_val = parseFloat(from);
-        var to_val = parseFloat(to);
+          var from_val = parseFloat(from);
+          var to_val = parseFloat(to);
 
-        if (vid_id == undefined || from_val == NaN || to_val == NaN) {
-          res.status(400);
-          res.send({
-            message: "vid_id -> undef || from_val -> NaN || to_val => NaN!",
-            req_id: null,
+          if (vid_id == undefined || from_val == NaN || to_val == NaN) {
+            throw err.REQ_UNDEFINED;
+          }
+
+          if (vid_id.length > 12) {
+            throw err.REQ_ID_LENGTH;
+          }
+
+          if (from_val >= to_val) {
+            throw err.REQ_FROM_GREATER;
+          }
+
+          if (to_val - from_val > conf.MAX_VIDEO_DURATION) {
+            throw err.REQ_EXCEEDED_DURATION;
+          }
+
+          console.log(`REQUEST: '${vid_id}' ${from}/${to}`);
+
+          var curr = Date.now();
+          var reqid = `${parseInt(curr / 1000)}-${short.generate()}`;
+
+          var ip =
+            req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
+
+          db_requests.insertOne({
+            req_id: reqid,
+            req_ip: ip,
+            req_status: 1000,
+            date: Date.now(),
+            vid_id: vid_id,
+            from: from,
+            to: to,
+            message: "init",
           });
-          return;
-        }
 
-        if (vid_id.length > 12) {
-          res.status(400);
-          res.send({
-            message: "vid_id is longer than permitted.",
-            req_id: null,
+          res.status(200).send({
+            message: "ok",
+            req_id: reqid,
           });
-          return;
-        }
 
-        if (from_val >= to_val) {
+          dl_vid(reqid, vid_id, from, to);
+        } 
+        catch (e) 
+        { 
           res.status(400);
-          res.send({
-            message:
-              "'FROM' is greater than 'TO', meaning you're traveling back to the future!",
-            req_id: null,
-          });
-          return;
+          res.send({ message: e });
         }
-
-        if (to_val - from_val > MAX_VIDEO_DURATION) {
-          res.status(400);
-          res.send({
-            message: `The video duration exceeds the limit of ${MAX_VIDEO_DURATION}s !`,
-            req_id: null,
-          });
-          return;
-        }
-
-        console.log(`REQUEST: '${vid_id}' ${from}/${to}`);
-
-        var curr = Date.now();
-        var reqid = `${parseInt(curr / 1000)}-${short.generate()}`;
-
-        var ip =
-          req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-
-        db_requests.insertOne({
-          req_id: reqid,
-          req_ip: ip,
-          req_status: 1000,
-          date: Date.now(),
-          vid_id: vid_id,
-          from: from,
-          to: to,
-          message: "init",
-        });
-
-        res.status(200).send({
-          message: "ok",
-          req_id: reqid,
-        });
-
-        dl_vid(reqid, vid_id, from, to);
       });
 
       app.get("/video/status", (req, res) => {
@@ -283,8 +259,8 @@ function initMongo() {
           .catch((err) => {
             res.status(404);
             res.send({
-              message: "not_found",
-              req_status: null,
+              message: "Video not found!",
+              req_status: null
             });
           });
       });
@@ -298,9 +274,7 @@ function initMongo() {
           .then((result) => {
             fs.stat(file, (err, stats) => {
               if (err) {
-                res.status(400);
-                res.send({ message: `Error: ${err}` });
-                return;
+                throw err;
               } else {
                 res.status(200);
                 res.sendFile(file);
@@ -310,7 +284,7 @@ function initMongo() {
           .catch((err) => {
             res.status(404);
             res.send({
-              message: "not_found",
+              message: err,
             });
           });
       });
@@ -339,6 +313,20 @@ function initMongo() {
         }
       });
 
+      app.get("/video/*", (req, res) => {
+        const file = __dirname + req.url.replace("video", "tmp");
+        fs.stat(file, (err, stats) => {
+          if (err) {
+            res.status(400);
+            res.send({ message: `${err}` });
+            return;
+          } else {
+            res.status(200);
+            res.sendFile(file);
+          }
+        });
+      });
+
       app.get("/debug", (req, res) => {
         const { type } = req.query;
         switch (type) {
@@ -357,11 +345,11 @@ function initMongo() {
         res.sendFile("page/index.html", { root: __dirname });
       });
 
-      app.listen(PORT, () => console.log(`Started on port ${PORT}`));
+      app.listen(conf.PORT, () => console.log(`Started on port ${conf.PORT}`));
 
       setInterval(() => {
         db_requests
-          .find({ date: { $lt: Date.now() - AD_OLDER_THAN * 60 } })
+          .find({ date: { $lt: Date.now() - conf.ADEL_OLDER_THAN * 60 } })
           .toArray()
           .then((result) => {
             result.forEach((element) => {
@@ -376,7 +364,7 @@ function initMongo() {
               );
             });
           });
-      }, AD_EVERY_M * 60000);
+      }, conf.ADEL_EVERY_MINS * 60000);
     }
   );
 }

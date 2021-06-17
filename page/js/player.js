@@ -19,7 +19,10 @@ $(document).ready(function () {
   var f_fromTime = $("#f_fromTime");
   var f_toTime = $("#f_toTime");
 
-  CreateYTPlayer(vID);
+  CreateYTPlayer(vID, () => {
+    f_fromTime.attr("max", player.getDuration());
+    f_toTime.attr("max", player.getDuration());
+  });
 
   $("#loadinggif").hide();
   $(".loading_back").toggleClass("loading_back_off");
@@ -72,9 +75,17 @@ $(document).ready(function () {
       } else {
         if (code != "1003") {
           setTimeout(() => {
-            var url = sv + `/video/download?req_id=${reqid}`;
-            console.log(url);
+            /*var url = sv + `/video/download?req_id=${reqid}`;
+            window.location = url;*/
+            var url = sv + `/video/${reqid}.mp4`;
             window.location = url;
+
+            /*$.ajax({
+              url: url,
+              success: download.bind(true, "video/mp4", `${reqid}.mp4`),
+            });*/
+
+            enable_loadingfeedback(false);
           }, 1000);
         } else {
           add_to_info(`ERROR -> ${res["message"]}`);
@@ -88,8 +99,7 @@ $(document).ready(function () {
     var curr = parseFloat(player.getCurrentTime());
     var num = parseFloat(roundToFixed2(curr));
 
-    if(curr > f_toTime.val())
-    {
+    if (curr > f_toTime.val()) {
       f_toTime.val(num + 1);
     }
 
@@ -102,8 +112,7 @@ $(document).ready(function () {
     var curr = parseFloat(player.getCurrentTime());
     var num = parseFloat(roundToFixed2(curr));
 
-    if(curr < f_fromTime.val())
-    {
+    if (curr < f_fromTime.val()) {
       f_fromTime.val(num - 1);
     }
 
@@ -116,8 +125,22 @@ $(document).ready(function () {
     var from = parseFloat(f_fromTime.val());
     var to = parseFloat(f_toTime.val());
 
-    if(from > to)
+    if (from > to) {
       f_fromTime.val(to - 1);
+    }
+
+    if (from < 0) {
+      f_fromTime.val(0);
+    }
+
+    if (to > player.getDuration()) {
+      f_toTime.val(player.getDuration());
+    }
+
+    if (from > player.getDuration()) {
+      f_toTime.val(5);
+      f_fromTime.val(0);
+    }
   });
 
   $("#f_videocontrols").submit((ev) => {
@@ -172,12 +195,12 @@ $(document).ready(function () {
     return false;
   });
 
-  $("#f_from-goto").click((ev) =>{
+  $("#f_from-goto").click((ev) => {
     player.seekTo(f_fromTime.val());
     return false;
   });
 
-  $("#f_to-goto").click((ev) =>{
+  $("#f_to-goto").click((ev) => {
     player.seekTo(f_toTime.val());
     return false;
   });
