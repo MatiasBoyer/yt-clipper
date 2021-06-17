@@ -1,19 +1,17 @@
 // ---- NO EDIT ----
 const conf = require("./config.js");
 const err = require("./errors.js");
+const http = require("http");
+const https = require("https");
 const express = require("express");
+const app = express();
 const short = require("short-uuid");
 const bp = require("body-parser");
 const fs = require("fs");
-const http = require("https");
-const https = require("https");
 const rateLimit = require("express-rate-limit");
 const readline = require("readline");
-const { exec } = require("child_process");
 
 const MongoClient = require("mongodb").MongoClient;
-const { exit } = require("process");
-const app = express();
 var db_username = "";
 var db_password = "";
 var MongoCONN = "";
@@ -112,8 +110,6 @@ function dl_vid(req_id, vid_id, from, to) {
     }
 
     yt_dl_result = stdout.split("\n");
-    //console.log(`stderr: ${stderr}`);
-    //console.log(`stdout: ${stdout}`);
 
     var ffmpeg_cmd = `ffmpeg -ss ${from} -i \"${yt_dl_result.join(" ")}\" -t ${
       to - from
@@ -126,9 +122,6 @@ function dl_vid(req_id, vid_id, from, to) {
         return;
       }
 
-      //console.log(`stderr: ${stderr}`);
-      //console.log(`stdout: ${stdout}`);
-
       console.log("Ended dl_vid");
       update_req(req_id, 1002, "ended DL_VID");
     });
@@ -137,23 +130,21 @@ function dl_vid(req_id, vid_id, from, to) {
 
 function start_server()
 {
-  /*var options = {
+  var options = {
     ca: readFile(__dirname + "\\certs\\ca.pem"),
     cert: readFile(__dirname + "\\certs\\cert.pem"),
     key: readFile(__dirname + "\\certs\\key.pem")
-  };*/
+  };
 
   //app.listen(conf.HTTP_PORT, () => console.log(`Started on port ${conf.HTTP_PORT}`));
 
-  try {
-    var http_sv = http.createServer(app);
-    http_sv.on("error", (err) => {
-      throw err;
-    });
-    http_sv.listen(80, () => {
-      console.log("bound to 80");
-    });
-  } catch (ex) {
+  try 
+  {
+    var http_sv = http.createServer(app).listen(conf.HTTP_PORT, () => console.log("HTTP bound to " + conf.HTTP_PORT));
+    var https_sv = https.createServer(app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
+  } 
+  catch (ex) 
+  {
     console.log(ex);
     exit(-1);
   }
@@ -398,12 +389,12 @@ function initMongo() {
           });
       }, conf.ADEL_EVERY_MINS * 60000);
 
-      console.log("INIT!");
+      console.log("Loaded app calls");
     }
   );
 }
 
 // Load DB Access, THEN inits Mongo
 load_dbaccess();
-start_server();
 setTimeout(() => initMongo(), 500);
+start_server();
