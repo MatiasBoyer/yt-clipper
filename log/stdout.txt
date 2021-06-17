@@ -117,3 +117,323 @@ Ended dl_vid
 Connected to MongoDB
 [2021-06-17 01:41:35]
 Started on port 80
+[2021-06-17 01:45:43]
+Connected to MongoDB
+[2021-06-17 01:45:43]
+Started on port 80
+[2021-06-17 01:45:48]
+REQUEST: 'rZjkgPDNhsA' 5/15
+[2021-06-17 01:45:48]
+Started dl_vid
+[2021-06-17 01:45:51]
+Ended dl_vid
+[2021-06-17 01:47:59]
+Connected to MongoDB
+[2021-06-17 01:47:59]
+Started on port 80
+[2021-06-17 01:48:06]
+REQUEST: 'XNo8xB-Xwpk' 5/15
+[2021-06-17 01:48:06]
+Started dl_vid
+[2021-06-17 01:48:09]
+Ended dl_vid
+[2021-06-17 01:53:22]
+Connected to MongoDB
+[2021-06-17 01:53:22]
+Started on port 80
+[2021-06-17 01:55:08]
+Connected to MongoDB
+[2021-06-17 01:55:08]
+Started on port 80
+[2021-06-17 01:55:26]
+REQUEST: 'XNo8xB-Xwpk' 5/15
+[2021-06-17 01:55:26]
+Started dl_vid
+[2021-06-17 01:55:30]
+Ended dl_vid
+[2021-06-17 01:58:09]
+Connected to MongoDB
+[2021-06-17 01:58:09]
+Started on port 80
+[2021-06-17 01:59:25]
+Connected to MongoDB
+[2021-06-17 01:59:25]
+Started on port 80
+[2021-06-17 01:59:44]
+Connected to MongoDB
+[2021-06-17 01:59:44]
+Started on port 80
+[2021-06-17 01:59:55]
+Connected to MongoDB
+[2021-06-17 01:59:55]
+Started on port 80
+[2021-06-17 02:00:32]
+Connected to MongoDB
+[2021-06-17 02:00:32]
+Started on port 80
+[2021-06-17 02:10:31]
+Connected to MongoDB
+[2021-06-17 02:10:31]
+Started on port 80
+[2021-06-17 02:10:53]
+Connected to MongoDB
+[2021-06-17 02:10:53]
+Started on port 80
+[2021-06-17 02:11:33]
+Connected to MongoDB
+[2021-06-17 02:11:33]
+Started on port 80
+[2021-06-17 02:14:27]
+Connected to MongoDB
+[2021-06-17 02:14:27]
+Started on port 80
+[2021-06-17 02:15:27]
+Connected to MongoDB
+[2021-06-17 02:15:27]
+Started on port 80
+[2021-06-17 02:16:10]
+REQUEST: 'XNo8xB-Xwpk' 140.81/214.77
+[2021-06-17 02:16:10]
+Started dl_vid
+[2021-06-17 02:16:14]
+Ended dl_vid
+[2021-06-17 02:19:03]
+Connected to MongoDB
+[2021-06-17 02:19:03]
+Started on port 80
+[2021-06-17 02:19:10]
+REQUEST: 'XNo8xB-Xwpk' 5/15
+[2021-06-17 02:19:10]
+Started dl_vid
+[2021-06-17 02:19:13]
+Ended dl_vid
+[2021-06-17 02:27:39]
+Connected to MongoDB
+[2021-06-17 02:27:39]
+Started on port 80
+[2021-06-17 02:28:16]
+Connected to MongoDB
+[2021-06-17 02:28:16]
+Started on port 80
+[2021-06-17 02:28:44]
+Connected to MongoDB
+[2021-06-17 02:28:44]
+Started on port 80
+[2021-06-17 02:29:42]
+Connected to MongoDB
+[2021-06-17 02:29:42]
+Started on port 80
+[2021-06-17 02:29:46]
+Connected to MongoDB
+[2021-06-17 02:29:46]
+Started on port 80
+[2021-06-17 02:29:55]
+Connected to MongoDB
+[2021-06-17 02:29:55]
+Started on port 80
+[2021-06-17 02:30:05]
+Connected to MongoDB
+[2021-06-17 02:30:05]
+Started on port 80
+[2021-06-17 02:38:05]
+Connected to MongoDB
+[2021-06-17 02:38:05]
+Started on port 80
+[2021-06-17 02:38:31]
+Connected to MongoDB
+[2021-06-17 02:38:31]
+Started on port 80
+[2021-06-17 02:38:44]
+Connected to MongoDB
+[2021-06-17 02:38:44]
+Started on port 80
+[2021-06-17 02:40:13]
+Connected to MongoDB
+[2021-06-17 02:40:13]
+Started on port 80
+[2021-06-17 02:42:31]
+Connected to MongoDB
+[2021-06-17 02:42:31]
+Started on port 80
+[2021-06-17 02:42:42]
+Connected to MongoDB
+[2021-06-17 02:42:43]
+Started on port 80
+[2021-06-17 02:44:07]
+Connected to MongoDB
+[2021-06-17 02:44:07]
+Started on port 80
+[2021-06-17 02:44:19]
+Connected to MongoDB
+[2021-06-17 02:44:19]
+Started on port 80
+[2021-06-17 02:44:54]
+Connected to MongoDB
+[2021-06-17 02:44:54]
+Started on port 80
+[2021-06-17 02:45:26]
+Connected to MongoDB
+[2021-06-17 02:45:26]
+Started on port 80
+[2021-06-17 02:45:47]
+Connected to MongoDB
+[2021-06-17 02:45:47]
+Started on port 80
+[2021-06-17 02:46:08]
+Connected to MongoDB
+[2021-06-17 02:46:08]
+Started on port 80
+[2021-06-17 02:46:12]
+Connected to MongoDB
+[2021-06-17 02:46:12]
+Started on port 80
+[2021-06-17 02:46:51]
+Connected to MongoDB
+[2021-06-17 02:46:51]
+Started on port 80
+[2021-06-17 02:47:00]
+Connected to MongoDB
+[2021-06-17 02:47:00]
+Started on port 80
+[2021-06-17 02:47:11]
+Connected to MongoDB
+[2021-06-17 02:47:11]
+Started on port 80
+[2021-06-17 02:47:21]
+Connected to MongoDB
+[2021-06-17 02:47:21]
+Started on port 80
+[2021-06-17 02:47:44]
+Connected to MongoDB
+[2021-06-17 02:47:44]
+Started on port 80
+[2021-06-17 02:47:48]
+undefined
+[2021-06-17 02:47:57]
+Connected to MongoDB
+[2021-06-17 02:47:57]
+Started on port 80
+[2021-06-17 02:48:02]
+undefined
+[2021-06-17 02:51:23]
+Connected to MongoDB
+[2021-06-17 02:51:23]
+Started on port 80
+[2021-06-17 02:51:32]
+REQUEST: 'XNo8xB-Xwpk' 145.03/204.24
+[2021-06-17 02:51:32]
+Started dl_vid
+[2021-06-17 02:51:36]
+Ended dl_vid
+[2021-06-17 12:54:06]
+Connected to MongoDB
+[2021-06-17 12:54:29]
+Connected to MongoDB
+[2021-06-17 12:56:15]
+Connected to MongoDB
+[2021-06-17 12:56:15]
+HTTP open on 80
+[2021-06-17 12:56:15]
+HTTPS open on 443
+[2021-06-17 12:56:50]
+Connected to MongoDB
+[2021-06-17 12:56:50]
+HTTPS open on 443
+[2021-06-17 12:57:25]
+Connected to MongoDB
+[2021-06-17 12:57:25]
+HTTP open on 80
+[2021-06-17 12:57:29]
+Connected to MongoDB
+[2021-06-17 12:57:29]
+HTTP open on 80
+[2021-06-17 12:57:54]
+Connected to MongoDB
+[2021-06-17 12:57:54]
+HTTP open on 80
+[2021-06-17 12:57:54]
+HTTPS open on 443
+[2021-06-17 12:58:23]
+Connected to MongoDB
+[2021-06-17 12:58:23]
+HTTPS open on 443
+[2021-06-17 12:58:23]
+HTTP open on 80
+[2021-06-17 13:00:16]
+Connected to MongoDB
+[2021-06-17 13:03:24]
+Connected to MongoDB
+[2021-06-17 13:03:29]
+Connected to MongoDB
+[2021-06-17 13:04:48]
+Connected to MongoDB
+[2021-06-17 13:05:15]
+Connected to MongoDB
+[2021-06-17 13:07:17]
+Connected to MongoDB
+[2021-06-17 13:07:40]
+Connected to MongoDB
+[2021-06-17 13:07:54]
+Connected to MongoDB
+[2021-06-17 13:07:54]
+INIT!
+[2021-06-17 13:07:58]
+Connected to MongoDB
+[2021-06-17 13:07:58]
+INIT!
+[2021-06-17 13:08:32]
+Connected to MongoDB
+[2021-06-17 13:08:32]
+INIT!
+[2021-06-17 13:10:50]
+Connected to MongoDB
+[2021-06-17 13:10:50]
+INIT!
+[2021-06-17 13:10:50]
+bound to 80
+[2021-06-17 13:11:21]
+Connected to MongoDB
+[2021-06-17 13:11:21]
+INIT!
+[2021-06-17 13:11:21]
+bound to 80
+[2021-06-17 13:12:51]
+Connected to MongoDB
+[2021-06-17 13:12:51]
+INIT!
+[2021-06-17 13:12:51]
+Started on port undefined
+[2021-06-17 13:13:23]
+Connected to MongoDB
+[2021-06-17 13:13:23]
+INIT!
+[2021-06-17 13:13:23]
+Started on port undefined
+[2021-06-17 13:13:29]
+Connected to MongoDB
+[2021-06-17 13:13:29]
+INIT!
+[2021-06-17 13:13:29]
+Started on port undefined
+[2021-06-17 13:13:44]
+Connected to MongoDB
+[2021-06-17 13:13:44]
+Started on port 80
+[2021-06-17 13:13:44]
+INIT!
+[2021-06-17 13:15:16]
+Connected to MongoDB
+[2021-06-17 13:15:16]
+INIT!
+[2021-06-17 13:15:16]
+bound to 80
+[2021-06-17 13:16:21]
+Connected to MongoDB
+[2021-06-17 13:16:21]
+INIT!
+[2021-06-17 13:16:25]
+bound to 80
+[2021-06-17 13:16:27]
+Connected to MongoDB
+[2021-06-17 13:16:27]
+INIT!
