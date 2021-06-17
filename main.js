@@ -1,26 +1,35 @@
 // ---- NO EDIT ----
 const conf = require("./config.js");
 const err = require("./errors.js");
+const http = require("http");
+const https = require("https");
 const express = require("express");
+const app = express();
 const short = require("short-uuid");
 const bp = require("body-parser");
 const fs = require("fs");
 const rateLimit = require("express-rate-limit");
 const readline = require("readline");
-const { exec } = require("child_process");
 
 const MongoClient = require("mongodb").MongoClient;
-const app = express();
 var db_username = "";
 var db_password = "";
 var MongoCONN = "";
+var db_requests = null;
 
 const normalChars =
   "0123456789QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm";
 const dl_location = __dirname + "\\tmp";
 
-// -- CODE --
+function readFile(path) {
+  try {
+    return fs.readFileSync(path);
+  } catch (ex) {
+    return null;
+  }
+}
 
+// -- CODE --
 var console = {};
 console.log = function (data, toFile = true) {
   if (toFile) {
@@ -56,6 +65,7 @@ console.error = function (data, toFile = true) {
   process.stderr.write(data + "\n");
 };
 
+// Loads DB User-Password-Connection address
 async function load_dbaccess() {
   const fstream = fs.createReadStream(__dirname + "\\access");
   const rl = readline.createInterface({
@@ -77,8 +87,7 @@ async function load_dbaccess() {
   MongoCONN = MongoCONN.replace("DB-PASS", db_password);
 }
 
-var db_requests = null;
-
+// Updates the req_id on the DB
 function update_req(req_id, status, message) {
   db_requests.updateOne(
     { $or: [{ req_id: req_id }] },
@@ -86,6 +95,7 @@ function update_req(req_id, status, message) {
   );
 }
 
+// Downloads video and changes the result of the req_id
 function dl_vid(req_id, vid_id, from, to) {
   update_req(req_id, 1001, "Started.");
   var yt_dl_cmd = `youtube-dl -f 22/18/best -g \"https://www.youtube.com/watch?v=${vid_id}\"`;
@@ -100,8 +110,6 @@ function dl_vid(req_id, vid_id, from, to) {
     }
 
     yt_dl_result = stdout.split("\n");
-    //console.log(`stderr: ${stderr}`);
-    //console.log(`stdout: ${stdout}`);
 
     var ffmpeg_cmd = `ffmpeg -ss ${from} -i \"${yt_dl_result.join(" ")}\" -t ${
       to - from
@@ -114,13 +122,32 @@ function dl_vid(req_id, vid_id, from, to) {
         return;
       }
 
-      //console.log(`stderr: ${stderr}`);
-      //console.log(`stdout: ${stdout}`);
-
       console.log("Ended dl_vid");
       update_req(req_id, 1002, "ended DL_VID");
     });
   });
+}
+
+function start_server()
+{
+  var options = {
+    ca: readFile(__dirname + "\\certs\\ca.pem"),
+    cert: readFile(__dirname + "\\certs\\cert.pem"),
+    key: readFile(__dirname + "\\certs\\key.pem")
+  };
+
+  //app.listen(conf.HTTP_PORT, () => console.log(`Started on port ${conf.HTTP_PORT}`));
+
+  try 
+  {
+    var http_sv = http.createServer(app).listen(conf.HTTP_PORT, () => console.log("HTTP bound to " + conf.HTTP_PORT));
+    var https_sv = https.createServer(app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
+  } 
+  catch (ex) 
+  {
+    console.log(ex);
+    exit(-1);
+  }
 }
 
 function initMongo() {
@@ -234,9 +261,7 @@ function initMongo() {
           });
 
           dl_vid(reqid, vid_id, from, to);
-        } 
-        catch (e) 
-        { 
+        } catch (e) {
           res.status(400);
           res.send({ message: e });
         }
@@ -260,7 +285,7 @@ function initMongo() {
             res.status(404);
             res.send({
               message: "Video not found!",
-              req_status: null
+              req_status: null,
             });
           });
       });
@@ -345,8 +370,6 @@ function initMongo() {
         res.sendFile("page/index.html", { root: __dirname });
       });
 
-      app.listen(conf.PORT, () => console.log(`Started on port ${conf.PORT}`));
-
       setInterval(() => {
         db_requests
           .find({ date: { $lt: Date.now() - conf.ADEL_OLDER_THAN * 60 } })
@@ -365,9 +388,13 @@ function initMongo() {
             });
           });
       }, conf.ADEL_EVERY_MINS * 60000);
+
+      console.log("Loaded app calls");
     }
   );
 }
 
+// Load DB Access, THEN inits Mongo
 load_dbaccess();
 setTimeout(() => initMongo(), 500);
+start_server();
