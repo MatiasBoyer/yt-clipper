@@ -1,18 +1,17 @@
 const sv = window.location.origin;
 const timeout = 3000;
 const check_vid_ms = 5000;
+const fixed_decimals = 1;
 
 function clamp(num, min, max) {
   return num <= min ? min : num >= max ? max : num;
 }
 
-function roundToFixed2(num) {
-  return (Math.round(parseFloat(num) * 100) / 100).toFixed(2);
+function roundToFixed(num, fixed) {
+  return (Math.round(parseFloat(num) * 100) / 100).toFixed(fixed);
 }
 
 $(document).ready(function () {
-  $("#img_header_href").attr("href", window.location.origin);
-
   var url_parse = new URL(window.location);
   var vID = url_parse.searchParams.get("v");
 
@@ -97,7 +96,7 @@ $(document).ready(function () {
 
   $("#f_from-set").click(() => {
     var curr = parseFloat(player.getCurrentTime());
-    var num = parseFloat(roundToFixed2(curr));
+    var num = parseFloat(roundToFixed(curr, fixed_decimals));
 
     if (curr > f_toTime.val()) {
       f_toTime.val(num + 1);
@@ -110,7 +109,7 @@ $(document).ready(function () {
 
   $("#f_to-set").click(() => {
     var curr = parseFloat(player.getCurrentTime());
-    var num = parseFloat(roundToFixed2(curr));
+    var num = parseFloat(roundToFixed(curr, fixed_decimals));
 
     if (curr < f_fromTime.val()) {
       f_fromTime.val(num - 1);

@@ -8,19 +8,9 @@
     <script src="js/ytplayer.js"></script>
     <script src="js/player.js"></script>
     <script src="js/download2.js"></script>
-    <div style="text-align: center; transform: translate(0, 10%)">
-      <a id="img_header_href" href="">
-        <img
-          src="img/cutter.png"
-          alt="YT Trimmer"
-          width="200"
-          height="200"
-          style="height: 150px; width: auto"
-        />
-      </a>
-    </div>
+    <iframe src="./pages/header.html" onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
   </head>
-  <body style="font-family: Arial, Helvetica, sans-serif; font-size: medium">
+  <body>
     <div id="loading_back" class="loading_back">
       <div
         id="loadinggif"
@@ -99,28 +89,6 @@
       ></textarea>
     </div>
   </body>
-  <div class="footer">
-    <table style="width: 100%">
-      <tr style="font-size: 12px">
-        <th style="width: 50%">
-          <a href="https://github.com/MatiasBoyer/yt-clipper">Github</a>
-        </th>
-        <th style="width: 50%">
-          Icons made by
-          <a
-            href="https://www.flaticon.com/authors/smashicons"
-            title="Smashicons"
-            >Smashicons</a
-          >
-          from
-          <a href="https://www.flaticon.com/" title="Flaticon"
-            >www.flaticon.com</a
-          >
-        </th>
-      </tr>
-      <tr style="font-size: 18px">
-        <th colspan="2">Made by <i>bigma</i></th>
-      </tr>
-    </table>
+  <iframe src="./pages/footer.html" onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
   </div>
 </html>

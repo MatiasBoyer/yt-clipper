@@ -256,12 +256,12 @@ function initMongo() {
             message: "init",
           });
 
+          dl_vid(reqid, vid_id, from, to);
+
           res.status(200).send({
             message: "ok",
             req_id: reqid,
           });
-
-          dl_vid(reqid, vid_id, from, to);
         } catch (e) {
           res.status(400);
           res.send({ message: e });
