@@ -18,13 +18,12 @@ $(document).ready(function () {
   var f_fromTime = $("#f_fromTime");
   var f_toTime = $("#f_toTime");
 
+  var loading_back = $(".loading_back");
+
   CreateYTPlayer(vID, () => {
     f_fromTime.attr("max", player.getDuration());
     f_toTime.attr("max", player.getDuration());
   });
-
-  $("#loadinggif").hide();
-  $(".loading_back").toggleClass("loading_back_off");
 
   $("textarea")
     .attr("unselectable", "on")
@@ -40,18 +39,24 @@ $(document).ready(function () {
 
   // ADD TO CMD LINE
   function add_to_info(line) {
-    info_text.val(info_text.val() + line + "\n");
-    info_text.scrollTop(info_text[0].scrollHeight - info_text.height());
+    //info_text.val(info_text.val() + line + "\n");
+    //info_text.scrollTop(info_text[0].scrollHeight - info_text.height());
+    console.log(line);
   }
   add_to_info("$(document).ready() !");
 
+  loading_back.css("z-index", -100);
+  loading_back.fadeOut(1);
+
   function enable_loadingfeedback(enable) {
-    if (enable == true) {
-      $("#loadinggif").show("slow");
-      $(".loading_back").toggleClass("loading_back_on");
-    } else {
-      $("#loadinggif").hide("slow");
-      $(".loading_back").toggleClass("loading_back_on");
+    if (enable == true) 
+    {
+      loading_back.fadeIn("slow");
+      loading_back.css("z-index", 1000);
+    } 
+    else 
+    {
+      back.fadeOut("fast");
     }
   }
 
