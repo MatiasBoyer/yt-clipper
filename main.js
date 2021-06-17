@@ -131,9 +131,9 @@ function dl_vid(req_id, vid_id, from, to) {
 function start_server()
 {
   var options = {
-    ca: readFile(__dirname + "\\certs\\ca.pem"),
+    ca: readFile(__dirname + "\\certs\\chain.pem"),
     cert: readFile(__dirname + "\\certs\\cert.pem"),
-    key: readFile(__dirname + "\\certs\\key.pem")
+    key: readFile(__dirname + "\\certs\\privkey.pem")
   };
 
   //app.listen(conf.HTTP_PORT, () => console.log(`Started on port ${conf.HTTP_PORT}`));
@@ -141,7 +141,7 @@ function start_server()
   try 
   {
     var http_sv = http.createServer(app).listen(conf.HTTP_PORT, () => console.log("HTTP bound to " + conf.HTTP_PORT));
-    var https_sv = https.createServer(app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
+    var https_sv = https.createServer(options, app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
   } 
   catch (ex) 
   {
