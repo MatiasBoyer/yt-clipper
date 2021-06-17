@@ -21,7 +21,7 @@ def checkUpdates():
 
 server = None
 async def openServer():
-    server = Popen(["nodemon", ".\\server.js", "--watch *.*"], shell=True)
+    server = Popen(["npm", "run", "dev"], shell=True)#"nodemon", ".\\server.js", "--watch *.*"], shell=True)
 async def closeServer():
     global server
     if server != None:
