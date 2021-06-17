@@ -31,20 +31,23 @@ async def closeServer():
         await asyncio.sleep(5)
 
 async def check_for_updates():
-    return checkUpdates()    
+    needToUpdate = checkUpdates()
+    print(f"Need to update: {needToUpdate}")
+    if needToUpdate:
+        exec_cmd("git reset --hard origin/prod")
+        await openServer()
 
 async def main():
+    await check_for_updates()
     await openServer()
     while True:
         await asyncio.sleep(CHECK_EVERY_N)
-        needToUpdate = await check_for_updates()
-        if needToUpdate:
-            exec_cmd("git reset --hard origin/prod")
-            await openServer()
+        await check_for_updates()
 
 loop = asyncio.get_event_loop()
 task = loop.create_task(main())
 
+print("Starting...")
 try:
     loop.run_until_complete(task)
     loop.run_forever()
