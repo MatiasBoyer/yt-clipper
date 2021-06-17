@@ -1,0 +1,53 @@
+---- INIT ----
+[2021-06-17 00:40:03]
+Connected to MongoDB
+[2021-06-17 00:40:03]
+Started on port 80
+[2021-06-17 00:40:54]
+Connected to MongoDB
+[2021-06-17 00:40:54]
+Started on port 80
+[2021-06-17 00:41:59]
+Connected to MongoDB
+[2021-06-17 00:41:59]
+Started on port 80
+[2021-06-17 00:46:05]
+Connected to MongoDB
+[2021-06-17 00:46:05]
+Started on port 80
+[2021-06-17 00:47:32]
+Connected to MongoDB
+[2021-06-17 00:47:32]
+Started on port 80
+[2021-06-17 00:59:47]
+Connected to MongoDB
+[2021-06-17 00:59:47]
+Started on port 80
+[2021-06-17 01:03:29]
+Connected to MongoDB
+[2021-06-17 01:03:29]
+Started on port 80
+[2021-06-17 01:04:31]
+Connected to MongoDB
+[2021-06-17 01:04:31]
+Started on port 80
+[2021-06-17 01:06:27]
+Connected to MongoDB
+[2021-06-17 01:06:27]
+Started on port 80
+[2021-06-17 01:09:48]
+Connected to MongoDB
+[2021-06-17 01:09:48]
+Started on port 80
+[2021-06-17 01:10:18]
+Connected to MongoDB
+[2021-06-17 01:10:18]
+Started on port 80
+[2021-06-17 01:11:16]
+Connected to MongoDB
+[2021-06-17 01:11:16]
+Started on port 80
+[2021-06-17 01:11:19]
+Connected to MongoDB
+[2021-06-17 01:11:19]
+Started on port 80
