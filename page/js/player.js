@@ -78,11 +78,12 @@ $(document).ready(function () {
             /*var url = sv + `/video/download?req_id=${reqid}`;
             window.location = url;*/
             var url = sv + `/video/${reqid}.mp4`;
+            window.location = url;
 
-            $.ajax({
+            /*$.ajax({
               url: url,
               success: download.bind(true, "video/mp4", `${reqid}.mp4`),
-            });
+            });*/
 
             enable_loadingfeedback(false);
           }, 1000);
