@@ -1,4 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
-    "footsteps.highlightColorMaxOpacity": 0.075
+    "footsteps.highlightColorMaxOpacity": 0.075,
+    "html.format.wrapAttributes": "force-aligned",
+    "prettier.jsxBracketSameLine": true
 }

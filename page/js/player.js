@@ -74,15 +74,8 @@ $(document).ready(function () {
       } else {
         if (code != "1003") {
           setTimeout(() => {
-            /*var url = sv + `/video/download?req_id=${reqid}`;
-            window.location = url;*/
             var url = sv + `/video/${reqid}.mp4`;
             window.location = url;
-
-            /*$.ajax({
-              url: url,
-              success: download.bind(true, "video/mp4", `${reqid}.mp4`),
-            });*/
 
             enable_loadingfeedback(false);
           }, 1000);
