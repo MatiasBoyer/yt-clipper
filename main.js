@@ -97,7 +97,7 @@ function update_req(req_id, status, message) {
 }
 
 // Downloads video and changes the result of the req_id
-function dl_vid(req_id, vid_id, from, to) {
+function dl_vid(req_id, vid_id, from, to, callback) {
   update_req(req_id, 1001, "Started.");
   var yt_dl_cmd = `youtube-dl -f 22/18/best -g \"https://www.youtube.com/watch?v=${vid_id}\"`;
 
@@ -107,6 +107,7 @@ function dl_vid(req_id, vid_id, from, to) {
       console.error(err);
       console.log("Error on YT_DL");
       update_req(req_id, 1003, "error on YT_DL");
+      callback("1003", err);
       return;
     }
 
@@ -120,32 +121,38 @@ function dl_vid(req_id, vid_id, from, to) {
         console.error(err);
         console.log("Error on FFMPEG");
         update_req(req_id, 1003, "error on FFMPEG");
+        callback("1003", err);
         return;
       }
 
       console.log("Ended dl_vid");
       update_req(req_id, 1002, "ended DL_VID");
+      callback("1002", null);
     });
   });
 }
 
-function start_server()
-{
+function start_server() {
   var options = {
     ca: readFile(__dirname + "\\certs\\chain.pem"),
     cert: readFile(__dirname + "\\certs\\cert.pem"),
-    key: readFile(__dirname + "\\certs\\privkey.pem")
+    key: readFile(__dirname + "\\certs\\privkey.pem"),
   };
 
   //app.listen(conf.HTTP_PORT, () => console.log(`Started on port ${conf.HTTP_PORT}`));
 
-  try 
-  {
-    var http_sv = http.createServer(app).listen(conf.HTTP_PORT, () => console.log("HTTP bound to " + conf.HTTP_PORT));
-    var https_sv = https.createServer(options, app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
-  } 
-  catch (ex) 
-  {
+  try {
+    var http_sv = http
+      .createServer(app)
+      .listen(conf.HTTP_PORT, () =>
+        console.log("HTTP bound to " + conf.HTTP_PORT)
+      );
+    var https_sv = https
+      .createServer(options, app)
+      .listen(conf.HTTPS_PORT, () =>
+        console.log("HTTPS bound to " + conf.HTTPS_PORT)
+      );
+  } catch (ex) {
     console.log(ex);
     exit(-1);
   }
@@ -256,15 +263,22 @@ function initMongo() {
             message: "init",
           });
 
-          dl_vid(reqid, vid_id, from, to);
+          dl_vid(reqid, vid_id, from, to, (code, err) => 
+          {
+            if(err != null)
+            {
+              res.status(400);
+              res.send({ code: code, message: "error!", req_id: null });
+              return;
+            }
 
-          res.status(200).send({
-            message: "ok",
-            req_id: reqid,
+            res.status(200);
+            res.send({ code: code, message: "ok", req_id: reqid });
           });
-        } catch (e) {
-          res.status(400);
-          res.send({ message: e });
+        } 
+        catch (e) 
+        {
+          console.log(e);
         }
       });
 

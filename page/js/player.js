@@ -1,5 +1,5 @@
 const sv = window.location.origin;
-const timeout = 3000;
+const timeout = 60 * 15;
 const check_vid_ms = 5000;
 const fixed_decimals = 1;
 
@@ -53,7 +53,7 @@ $(document).ready(function () {
       loading_back.fadeIn("slow");
       loading_back.css("z-index", 1000);
     } else {
-      back.fadeOut("fast");
+      loading_back.fadeOut("fast");
     }
   }
 
@@ -161,23 +161,21 @@ $(document).ready(function () {
       type: "POST",
       url: sv + "/video/request",
       data: obj_data,
-      dataType: "json",
-      timeout: timeout,
+      dataType: "json"
     })
       .done((res) => {
-        add_to_info(`DONE -> ${res["req_id"]}`);
-        add_to_info("Starting task checking progress");
-
-        /*$(this).delay(1000).queue(() => 
-            {
-                check_request(res["req_id"])
-                $(this).dequeue();
-            });*/
-        setTimeout(() => check_request(res["req_id"]), 4000);
+        console.log(res);
+        var code = parseInt(res["code"]);
+        
+        switch(code)
+        {
+          case 1002:
+            window.location = window.origin + `/video/${res["req_id"]}.mp4`;
+            break;
+        }
       })
       .fail((err) => {
-        var obj = JSON.parse(err.responseText);
-        add_to_info(`ERROR -> ${obj["message"]}`);
+        console.log(err["message"]);
         enable_loadingfeedback(false);
 
         $(this).find("button[type='submit']").prop("disabled", false);
