@@ -141,7 +141,7 @@ function start_server()
   try 
   {
     var http_sv = http.createServer(app).listen(conf.HTTP_PORT, () => console.log("HTTP bound to " + conf.HTTP_PORT));
-    var https_sv = https.createServer(app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
+    var https_sv = https.createServer(options, app).listen(conf.HTTPS_PORT, () => console.log("HTTPS bound to " + conf.HTTPS_PORT));
   } 
   catch (ex) 
   {
