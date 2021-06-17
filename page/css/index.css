@@ -116,10 +116,10 @@ section {
 
 .loading_back {
   position: fixed;
-  padding: 0;
+  padding: 50px;
   margin: 0;
-  top: 0;
-  left: 0;
+  top: -50px;
+  left: -50px;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);

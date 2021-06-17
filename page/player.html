@@ -15,22 +15,22 @@
       src="./pages/header.html"
       onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"
     ></iframe>
+    <!-- LOADING BACKGROUND -->
+    <div id="loading_back" class="loading_back">
+      <div
+        id="loadinggif"
+        style="
+          position: absolute;
+          z-index: 100;
+          top: 50%;
+          left: 50%;
+          margin-left: -75px;
+          margin-top: -80px;
+        "
+        class="loader"
+      ></div>
+    </div>
     <section>
-      <!-- LOADING BACKGROUND -->
-      <div id="loading_back" class="loading_back">
-        <div
-          id="loadinggif"
-          style="
-            position: absolute;
-            z-index: 100;
-            top: 50%;
-            left: 50%;
-            margin-left: -75px;
-            margin-top: -80px;
-          "
-          class="loader"
-        ></div>
-      </div>
       <!-- PLAYER & AJAX REQUEST -->
       <table
         class="table_center"
