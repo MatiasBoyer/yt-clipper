@@ -1,7 +1,7 @@
 import sched, time, asyncio
 from subprocess import PIPE, Popen
 
-CHECK_EVERY_N = 30 * 60
+CHECK_EVERY_N = 5 * 60
 
 def exec_cmd(cmd):
     with Popen(cmd, stdout=PIPE, stderr=None, shell=True) as process:
