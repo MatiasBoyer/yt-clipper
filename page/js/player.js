@@ -49,13 +49,10 @@ $(document).ready(function () {
   loading_back.fadeOut(1);
 
   function enable_loadingfeedback(enable) {
-    if (enable == true) 
-    {
+    if (enable == true) {
       loading_back.fadeIn("slow");
       loading_back.css("z-index", 1000);
-    } 
-    else 
-    {
+    } else {
       back.fadeOut("fast");
     }
   }
@@ -140,8 +137,8 @@ $(document).ready(function () {
     }
   });
 
-  $("#f_videocontrols").submit((ev) => {
-    $(this).find("button[type='submit']").prop("disabled", true);
+  $("#f_submit").click((ev) => {
+    $("#f_submit").prop("disabled", true);
 
     var f_fromTime = $("#f_fromTime");
     var f_toTime = $("#f_toTime");

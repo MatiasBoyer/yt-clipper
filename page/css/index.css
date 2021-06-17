@@ -26,6 +26,7 @@
   border-bottom: 1px solid #fff;
   outline: none;
   background: transparent;
+  text-shadow: 2px 2px 4px #000000
 }
 
 ::placeholder
@@ -45,6 +46,8 @@
 
   --color: #c9e0d9;
   --hover: #43494e;
+
+  text-shadow: 1px 1px 3px #000000
 }
 
 .button-offset:hover, 
@@ -100,7 +103,7 @@ section {
   height:300px;
   background-color:#d9d9d9;
   position:fixed;
-  margin-left:-308px; /* half of width */
+  margin-left:-314px; /* half of width */
   margin-top:-260px;  /* half of height */
   top:50%;
   left:50%;
