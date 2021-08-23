@@ -35,6 +35,7 @@ async def check_for_updates():
     print(f"Need to update: {needToUpdate}")
     if needToUpdate:
         exec_cmd("git reset --hard origin/prod")
+        exec_cmd("npm install")
         await openServer()
 
 async def main():
