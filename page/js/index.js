@@ -25,7 +25,7 @@ $(document).ready(function () {
         return;
       }
 
-      window.location = window.location.origin + "/player.html?v=" + vID;
+      window.location = window.location.origin + "/player/?v=" + vID;
     } 
     catch (e) 
     {

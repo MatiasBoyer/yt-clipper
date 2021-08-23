@@ -13,7 +13,10 @@ function roundToFixed(num, fixed) {
 
 $(document).ready(function () {
   var url_parse = new URL(window.location);
-  var vID = url_parse.searchParams.get("v");
+  var querystr = new URLSearchParams(window.location.search);
+  var vID = querystr.get("v");
+
+  console.log(vID);
 
   var f_fromTime = $("#f_fromTime");
   var f_toTime = $("#f_toTime");

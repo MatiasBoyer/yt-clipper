@@ -11,8 +11,10 @@ const fs = require("fs");
 const rateLimit = require("express-rate-limit");
 const readline = require("readline");
 const { exec } = require("child_process");
+const handlebars = require("express-handlebars");
 
 const MongoClient = require("mongodb").MongoClient;
+const { start } = require("repl");
 var db_username = "";
 var db_password = "";
 var MongoCONN = "";
@@ -185,15 +187,25 @@ function initMongo() {
       app.use(bp.json());
       app.use(bp.urlencoded({ extended: true }));
 
+      app.engine("hbs", handlebars({
+        defaultLayout: 'main',
+        extname: 'hbs',
+        layoutsDir: __dirname + '/page/views/layouts',
+        partialsDir: __dirname + '/page/views/partials'
+      }));
+      app.set('views', __dirname + '/page/views');
+      app.set('view engine', 'hbs');
+
       const db = client.db("ytclipper");
-      db_requests = db.collection("requests");
+      db_requests = db.collection("requestsDEV");
 
       function delete_vid(req_id, okCallback, errorCallback) {
         const file = `${__dirname}/tmp/${req_id}.mp4`;
         db_requests
-          .findOne({ $or: [{ req_id: req_id }] })
+          .findOne({ req_id: { $eq: req_id }, message: { $ne: "deleted" } })
           .then((r) => {
-            db_requests.deleteOne({ $or: [{ req_id: req_id }] });
+            //db_requests.deleteOne({ $or: [{ req_id: req_id }] });
+            update_req(req_id, -1, "deleted");
 
             fs.unlink(file, (err) => {
               if (err) {
@@ -249,12 +261,8 @@ function initMongo() {
           var curr = Date.now();
           var reqid = `${parseInt(curr / 1000)}-${short.generate()}`;
 
-          var ip =
-            req.headers["x-forwarded-for"] || req.socket.remoteAddress || null;
-
           db_requests.insertOne({
             req_id: reqid,
-            req_ip: ip,
             req_status: 1000,
             date: Date.now(),
             vid_id: vid_id,
@@ -367,22 +375,25 @@ function initMongo() {
         });
       });
 
-      app.get("/debug", (req, res) => {
-        const { type } = req.query;
-        switch (type) {
-          case "stdout":
-            res.status(200);
-            res.sendFile(`${__dirname}\\log\\stdout.txt`);
-            break;
-          case "stderr":
-            res.status(200);
-            res.sendFile(`${__dirname}\\log\\stderr.txt`);
-            break;
-        }
+      app.get("/", (req,res) => {
+        res.render("selector");
       });
 
-      app.get("/", (req, res) => {
-        res.sendFile("page/index.html", { root: __dirname });
+      app.get("/:loc/*", (req, res) => {
+        let browserloc = req.params.loc.toLowerCase();
+
+        switch(browserloc)
+        {
+          case "player": break;
+          case "selector": break;
+          default: browserloc = "selector"; break;
+        }
+
+        res.render(browserloc);
+      });
+
+      app.get("*", (req, res) => {
+        res.render("404");
       });
 
       setInterval(() => {
@@ -409,7 +420,15 @@ function initMongo() {
   );
 }
 
+// Create TMP folder
+let tmp_dir = "./tmp";
+if(!fs.existsSync(tmp_dir))
+{
+  fs.mkdir(tmp_dir);
+}
+
 // Load DB Access, THEN inits Mongo
+console.log("Loading..");
 load_dbaccess();
 setTimeout(() => initMongo(), 500);
 start_server();
