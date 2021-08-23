@@ -197,7 +197,7 @@ function initMongo() {
       app.set('view engine', 'hbs');
 
       const db = client.db("ytclipper");
-      db_requests = db.collection("requestsDEV");
+      db_requests = db.collection("requests");
 
       function delete_vid(req_id, okCallback, errorCallback) {
         const file = `${__dirname}/tmp/${req_id}.mp4`;
